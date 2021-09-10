@@ -8,7 +8,6 @@ from components.footer import footer
 from components.page_not_found import page_not_found
 from components.gene_drive import GeneDriveAIO
 
-
 external_stylesheets = [dbc.themes.BOOTSTRAP,
                         'https://codepen.io/chriddyp/pen/bWLwgP.css']
 external_scripts = ['https://code.jquery.com/jquery-3.2.1.slim.min.js',
@@ -22,6 +21,7 @@ app = dash.Dash(__name__,
                 suppress_callback_exceptions=True)
 
 server = app.server
+
 
 # A function to wrap a component with header and footer
 def layout(component=None):
@@ -65,5 +65,5 @@ def display_page(pathname):
 
 if __name__ == '__main__':
     app.run_server(debug=False,
-                   port = 8050,
+                   port=8050,
                    host='0.0.0.0')

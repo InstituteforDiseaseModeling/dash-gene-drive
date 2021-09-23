@@ -9,4 +9,5 @@ header = dbc.NavbarSimple(
     brand_href="/",
     color="#24323c",
     dark=True,
+    className="sticky-top"
 )

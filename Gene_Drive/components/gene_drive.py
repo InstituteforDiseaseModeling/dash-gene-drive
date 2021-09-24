@@ -1,6 +1,6 @@
 import dash
 from dash import html, dcc, callback
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import numpy as np
 import os
 import pandas as pd
@@ -90,164 +90,312 @@ dfed = pd.read_csv(os.path.join(data_dir, 'dfed_' + wi_name + '.csv'))
 class GeneDriveAIO(html.Div):
     def __init__(self):
         super().__init__([
-            html.Div(style={"minHeight": "85vh"}, children=[
-                dcc.Tabs([
-                    dcc.Tab(label='Elimination probabilities', children=[
 
-                        html.H2(children='Elim probabilities: ' + wi_name_sh),
+            html.Div(
+                id="tabs-content",
+                style={"height": "100%"},
+                children=[
+                    dcc.Tabs([
+                        dcc.Tab(label='Elimination probabilities',
+                                style={"height": "100%"},
+                                children=[
+                                    html.Div(className="container-fluid",
+                                             children=[html.H2(
+                                                 className="text-center",
+                                                 children='Elim probabilities: ' + wi_name_sh)]
+                                             ),
+                                    html.Div(
+                                        className="container-fluid row",
+                                        children=[
+                                            html.Div(
+                                                className="col-11",
+                                                children=[
+                                                    html.Div(
+                                                        className="row",
+                                                        children=[
 
-                        html.Div(children=[
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Outer x-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='outer-xvar0',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='rc'
+                                                                    )
+                                                                ]),
 
-                            html.Div(children=[
-                                html.Label(['Outer x-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='outer-xvar0',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='rc'
-                                )
-                            ], style={'width': '10%'}),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Outer y-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='outer-yvar0',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='d'
+                                                                    )
+                                                                ]),
 
-                            html.Div(children=[
-                                html.Label(['Outer y-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='outer-yvar0',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='d'
-                                )
-                            ], style={'width': '10%'}),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Matrix x-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='matrix-xvar0',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='rr0')
+                                                                ]),
 
-                            html.Div(children=[
-                                html.Label(['Matrix x-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='matrix-xvar0',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='rr0')
-                            ], style={'width': '10%'}),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Matrix y-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='matrix-yvar0',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='sne')
+                                                                ]),
 
-                            html.Div(children=[
-                                html.Label(['Matrix y-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='matrix-yvar0',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='sne')
-                            ], style={'width': '10%'}),
+                                                        ])
+                                                ]
+                                            ),
+                                            html.Div(
+                                                className="col-1",
+                                                children=[
+                                                    html.Button(
+                                                        className="btn btn-lg btn-primary btn-block",
+                                                        children="Run",
+                                                        id="run-elim-prob-matrices",
+                                                        style={"height": "100%"},
+                                                        n_clicks=0
+                                                    )
+                                                ]
+                                            )
+                                        ]
+                                    ),
 
-                        ], style=dict(display='flex')),
+                                    html.Div([
+                                        dcc.Graph(id='elim-prob-matrices',
+                                                  style={'width': '100%', 'height': '60vh'})
+                                    ])
+                                ]),
 
-                        html.Div([
-                            dcc.Graph(id='elim-prob-matrices',
-                                      style={'width': '95%', 'height': '80vh'})
-                        ])
-                    ]),
+                        dcc.Tab(label='Years to elimination',
+                                style={"height": "100%"},
+                                children=[
+                                    html.Div(className="container-fluid",
+                                             children=[html.H2(
+                                                 className="text-center",
+                                                 children='Years to elim: ' + wi_name_sh)]
+                                             ),
+                                    html.Div(
+                                        className="container-fluid row",
+                                        children=[
+                                            html.Div(
+                                                className="col-11",
+                                                children=[
+                                                    html.Div(
+                                                        className="row",
+                                                        children=[
 
-                    dcc.Tab(label='Years to elimination', children=[
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Outer x-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='outer-xvar1',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='rc'
+                                                                    )
+                                                                ], style={'width': '10%'}),
 
-                        html.H2(children='Years to elim: ' + wi_name_sh),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Outer y-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='outer-yvar1',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='d'
+                                                                    )
+                                                                ], style={'width': '10%'}),
 
-                        html.Div(children=[
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Matrix x-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='matrix-xvar1',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='rr0')
+                                                                ], style={'width': '10%'}),
 
-                            html.Div(children=[
-                                html.Label(['Outer x-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='outer-xvar1',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='rc'
-                                )
-                            ], style={'width': '10%'}),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Matrix y-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='matrix-yvar1',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='sne')
+                                                                ], style={'width': '10%'}),
 
-                            html.Div(children=[
-                                html.Label(['Outer y-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='outer-yvar1',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='d'
-                                )
-                            ], style={'width': '10%'}),
+                                                        ], style=dict(display='flex')
+                                                    ),
+                                                ]
+                                            ),
+                                            html.Div(
+                                                className="col-1",
+                                                children=[
+                                                    html.Button(
+                                                        className="btn btn-lg btn-primary btn-block",
+                                                        children="Run",
+                                                        id="run-elim-day-matrices",
+                                                        style={"height": "100%"},
+                                                        n_clicks=0
+                                                    )
+                                                ]
+                                            )
+                                        ]
+                                    ),
 
-                            html.Div(children=[
-                                html.Label(['Matrix x-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='matrix-xvar1',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='rr0')
-                            ], style={'width': '10%'}),
+                                    html.Div([
+                                        dcc.Graph(id='elim-day-matrices',
+                                                  style={'width': '100%', 'height': '60vh'})
+                                    ])
+                                ]),
 
-                            html.Div(children=[
-                                html.Label(['Matrix y-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='matrix-yvar1',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='sne')
-                            ], style={'width': '10%'}),
+                        dcc.Tab(label='Prevalence time series',
+                                style={"height": "100%"},
+                                children=[
+                                    html.Div(className="container-fluid",
+                                             children=[html.H2(
+                                                 className="text-center",
+                                                 children='Prev time series: ' + wi_name_sh), ]
+                                             ),
+                                    html.Div(
+                                        className="container-fluid row",
+                                        children=[
+                                            html.Div(
+                                                className="col-11",
+                                                children=[
+                                                    html.Div(
+                                                        className="row",
+                                                        children=[
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Outer x-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='outer-xvar2',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='rr0'
+                                                                    )
+                                                                ], style={'width': '10%'}),
 
-                        ], style=dict(display='flex')),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['Outer y-var:'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='outer-yvar2',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='sne'
+                                                                    )
+                                                                ], style={'width': '10%'}),
 
-                        html.Div([
-                            dcc.Graph(id='elim-day-matrices',
-                                      style={'width': '95%', 'height': '80vh'})
-                        ])
-                    ]),
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['1st sweep var (color):'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='sweep-var2-0',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='rc')
+                                                                ], style={'width': '10%'}),
 
-                    dcc.Tab(label='Prevalence time series', children=[
+                                                            html.Div(
+                                                                className="col-3",
+                                                                children=[
+                                                                    html.Label(['2nd sweep var (line style):'],
+                                                                               style={'font-weight': 'bold',
+                                                                                      'text-align': 'center'}),
+                                                                    dcc.Dropdown(
+                                                                        id='sweep-var2-1',
+                                                                        options=[{'label': i, 'value': i} for i in
+                                                                                 list(allvarvals.keys())],
+                                                                        value='d')
+                                                                ], style={'width': '10%'}),
 
-                        html.H2(children='Prev time series: ' + wi_name_sh),
+                                                        ],
+                                                        style=dict(display='flex'))
+                                                ]
+                                            ),
+                                            html.Div(
+                                                className="col-1",
+                                                children=[
+                                                    html.Button(
+                                                        className="btn btn-lg btn-primary btn-block",
+                                                        children="Run",
+                                                        id="run-prev-ts",
+                                                        style={"height": "100%"},
+                                                        n_clicks=0
+                                                    ),
+                                                ]
+                                            )
+                                        ]
+                                    ),
 
-                        html.Div(children=[
-
-                            html.Div(children=[
-                                html.Label(['Outer x-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='outer-xvar2',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='rr0'
-                                )
-                            ], style={'width': '10%'}),
-
-                            html.Div(children=[
-                                html.Label(['Outer y-var:'], style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='outer-yvar2',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='sne'
-                                )
-                            ], style={'width': '10%'}),
-
-                            html.Div(children=[
-                                html.Label(['1st sweep var (color):'],
-                                           style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='sweep-var2-0',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='rc')
-                            ], style={'width': '10%'}),
-
-                            html.Div(children=[
-                                html.Label(['2nd sweep var (line style):'],
-                                           style={'font-weight': 'bold', 'text-align': 'center'}),
-                                dcc.Dropdown(
-                                    id='sweep-var2-1',
-                                    options=[{'label': i, 'value': i} for i in list(allvarvals.keys())],
-                                    value='d')
-                            ], style={'width': '10%'}),
-
-                        ], style=dict(display='flex')),
-
-                        html.Div([
-                            dcc.Graph(id='prev-ts',
-                                      style={'width': '100%', 'height': '80vh'})
-                        ])
+                                    html.Div([
+                                        dcc.Graph(id='prev-ts',
+                                                  style={'width': '100%', 'height': '60vh'})
+                                    ])
+                                ])
                     ])
                 ])
-            ])
         ])
 
     @callback(
         Output('elim-prob-matrices', 'figure'),
-        [Input('outer-xvar0', 'value'),
-         Input('outer-yvar0', 'value'),
-         Input('matrix-xvar0', 'value'),
-         Input('matrix-yvar0', 'value')])
-    def update_elim_prob_matrices(ov_xvar, ov_yvar, mat_xvar, mat_yvar):
+        [State('outer-xvar0', 'value'),
+         State('outer-yvar0', 'value'),
+         State('matrix-xvar0', 'value'),
+         State('matrix-yvar0', 'value'),
+         Input('run-elim-prob-matrices', 'n_clicks')])
+    def update_elim_prob_matrices(ov_xvar, ov_yvar, mat_xvar, mat_yvar, n_clicks):
         # - Get all outer xvar and yvar vals
         ov_xvar_vals = allvarvals[ov_xvar]
         ov_yvar_vals = allvarvals[ov_yvar]
@@ -342,11 +490,12 @@ class GeneDriveAIO(html.Div):
 
     @callback(
         Output('elim-day-matrices', 'figure'),
-        [Input('outer-xvar1', 'value'),
-         Input('outer-yvar1', 'value'),
-         Input('matrix-xvar1', 'value'),
-         Input('matrix-yvar1', 'value')])
-    def update_elim_day_matrices(ov_xvar, ov_yvar, mat_xvar, mat_yvar):
+        [State('outer-xvar1', 'value'),
+         State('outer-yvar1', 'value'),
+         State('matrix-xvar1', 'value'),
+         State('matrix-yvar1', 'value'),
+         Input('run-elim-day-matrices', 'n_clicks')])
+    def update_elim_day_matrices(ov_xvar, ov_yvar, mat_xvar, mat_yvar, n_clicks):
         # - Get all outer xvar and yvar vals
         ov_xvar_vals = allvarvals[ov_xvar]
         ov_yvar_vals = allvarvals[ov_yvar]
@@ -438,11 +587,12 @@ class GeneDriveAIO(html.Div):
 
     @callback(
         Output('prev-ts', 'figure'),
-        [Input('outer-xvar2', 'value'),
-         Input('outer-yvar2', 'value'),
-         Input('sweep-var2-0', 'value'),
-         Input('sweep-var2-1', 'value')])
-    def update_prev_ts(ov_xvar, ov_yvar, svar0, svar1):
+        [State('outer-xvar2', 'value'),
+         State('outer-yvar2', 'value'),
+         State('sweep-var2-0', 'value'),
+         State('sweep-var2-1', 'value'),
+         Input('run-prev-ts', 'n_clicks')])
+    def update_prev_ts(ov_xvar, ov_yvar, svar0, svar1, n_clicks):
         allvardefsnow = {k: v for k, v in allvardefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         dfinow = dfi
         for k, v in allvardefsnow.items():

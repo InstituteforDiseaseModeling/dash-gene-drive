@@ -25,11 +25,13 @@ server = app.server
 
 # A function to wrap a component with header and footer
 def layout(component=None):
-    return html.Div(children=[
-        header,
-        component,
-        footer
-    ])
+    return html.Div(
+        style={"height": "100%"},
+        children=[
+            header,
+            component,
+            footer
+        ])
 
 
 # define the home_page

@@ -8,7 +8,7 @@
 # User Installation
 
 ```bash
-pip install Gene_Drive --index-url={{ cookiecutter.pypi_server }}
+pip install Gene_Drive --index-url=https://packages.idmod.org/api/pypi/idm-pypi-staging/
 ```
 
 ## Pre-requisites

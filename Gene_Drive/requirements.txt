@@ -4,6 +4,8 @@
 #
 #    pip-compile
 #
+--index-url=https://packages.idmod.org/api/pypi/pypi-production/simple
+
 brotli==1.0.9
     # via flask-compress
 click==8.0.1

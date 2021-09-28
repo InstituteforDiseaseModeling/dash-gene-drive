@@ -30,11 +30,6 @@ clean: ## Clean most of the temp-data from the project
 clean-all: clean ## Deleting package info hides plugins so we only want to do that for packaging
 	-rm -rf **/*.egg-info/
 
-{% if cookiecutter.linting.lower()[0] == "y" %}
-# Linting
-lint: ## check style with flake8
-	flake8 --ignore=E501,W291 $(PACKAGE_NAME)
-{% endif %}
 
 ## Tests
 #############
@@ -102,16 +97,6 @@ bump-minor-dry-run: ## bump the minor version(dry run)
 bump-major-dry-run: ## bump the major version(dry run)
 	bump2version major --dry-run --allow-dirty --verbose
 
-{% if cookiecutter.docs.lower()[0] == "y" %}
-# Docs Related rules
-#####################
-docs: ## build docs
-	$(PDR) -wd 'docs' -ex 'make html'
-
-docs-server: docs ## builds docs and launch a webserver and watches for changes to documentation
-	$(PDS)serve_docs.py
-
-{% endif %}
 # Extra
 licenses: ## Generate Notices.txt
 	pip-licenses --output-file NOTICES.txt

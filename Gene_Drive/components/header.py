@@ -5,7 +5,7 @@ header = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("About", href="/about"))
     ],
-    brand="Gene_Drive",
+    brand="Gene Drive",
     brand_href="/",
     color="#24323c",
     dark=True,

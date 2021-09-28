@@ -5,7 +5,7 @@ import datetime
 current_year = datetime.date.today().year
 
 footer_style = {
-    "position": "absolute",
+    "position": "sticky",
     "bottom": 0,
     "width": "100%",
     "backgroundColor": "#24323c",

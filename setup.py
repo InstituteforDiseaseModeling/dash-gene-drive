@@ -14,14 +14,13 @@ for file_prefix in ['', 'dev_', 'build_']:
     filename = f'{file_prefix}requirements'
     with open(f'{filename}.txt') as requirements_file:
         fk = file_prefix.strip("_") if file_prefix else filename
-        extra_require_files[fk] = [r for r in requirements_file.read().split("\n") if not r.startswith("--")]
+        extra_require_files[fk] = [r for r in requirements_file.read().split("\n") if not (r.startswith("--") and r.startswith('#'))]
 
-extras = dict(
-    test=extra_require_files['build'] + extra_require_files['dev'],
-    dev=extra_require_files['build'] + extra_require_files['dev'],
-    build=extra_require_files['build'],
-    packaging=extra_require_files['build']
-)
+build_requirements = ['flake8', 'coverage', 'py-make', 'bump2version', 'twine']
+setup_requirements = []
+test_requirements = ['pytest', 'pytest-runner', 'pytest-timeout', 'pytest-cache'] + build_requirements
+
+extras = dict(test=test_requirements, packaging=build_requirements)
 
 
 authors = [

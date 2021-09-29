@@ -1,4 +1,4 @@
-name: "Staging: rename"
+name: "Staging: Gene_Drive"
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
 
 jobs:
   release_Gene_Drive:
-    name: "Release rename"
+    name: "Release Gene_Drive"
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python

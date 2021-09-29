@@ -1,35 +1,44 @@
 # Gene_Drive
-Dash Gene Drive Application
 
-#### Install requirements
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+# User Installation
+
+```bash
+pip install rename --index-url=https://packages.idmod.org/api/pypi/idm-pypi-staging/
 ```
-cd Gene_Drive
-pip install -r requirements.txt
+
+## Pre-requisites
+- Python 3.6/3.7 x64
+
+
+# Development Environment Setup
+
+When setting up your environment for the first time, you can use the following instructions
+
+## First Time Setup
+1) Clone the repository:
+   ```bash
+   > git clone https://github.com/InstituteforDiseaseModeling/dash-gene-drive
+   ```
+2) Create a virtualenv. On Windows, please use venv to create the environment
+   `python -m venv {{ cookiecutter.library_name }}`
+   On Unix(Mac/Linux) you can use venv or virtualenv
+3) Activate the virtualenv
+4) If you are on windows, run `pip install py-make --upgrade --force-reinstall`
+5) Then run `python ./.dev_scripts/bootstrap.py`. This will install all the tools. 
+
+## Development Tips
+
+There is a Makefile file available for most common development tasks. Here is a list of commands
+```bash
+clean       -   Clean up temproary files
+lint        -   Lint package and tests
+test        -   Run All tests
+coverage    -   Run tests and generate coverage report that is shown in browser
 ```
-**Note:** `requirements.txt` was created using pip-tools by running `pip-compile` command in the same directory
-as `requirements.in`. If you want to add new packages you can update `requirements.in` with the new package's name,
-run `pip-compile` then finally run `pip install -r requirements.txt`.
+On Windows, you can use `pymake` instead of `make`
 
-#### Data
-Inside the `Gene_Drive` directory we need a `csvs` directory to hold the csvs needed. 
-
-#### Run app.py 
-From the Gene_Drive directory  run
-```
-    python app.py
-```
-**Note** If you're using Pycharm, and you're running the app in debug mode, you may encounter an error. This is due to the IDE itself. 
-Install the latest version of py charm (2021.2.1 RC or latest). 
-
-#### Manually updating licenses file
-If you install additional third party packages, the licenses file should reflect the change. From the directory
-where `LICENSES.txt` is run `pip-licenses --format=markdown --output-file=LICENSES.txt`
-
-
-#### Staging
-```
-pip install gunicorn
-cd Gene_Drive
-gunicorn app:server -b 0.0.0.0:8050
-
-```

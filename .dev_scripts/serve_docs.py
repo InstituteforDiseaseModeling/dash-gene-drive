@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser("Serves and autobuilds the docs")
 parser.add_argument('--port', type=int, default=8000, help="Port to serve docs on.")
 args = parser.parse_args()
 
-root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../rename"))
 os.chdir(root_dir)
 server = Server()
 dirs_to_watch = set()

@@ -25,7 +25,7 @@ if sys.platform == "win32" and 'VIRTUAL_ENV' in os.environ:
 # To use simply run
 # python bootstrap.py
 
-base_directory = abspath(join(dirname(__file__), '..'))
+base_directory = abspath(join(dirname(__file__), '../rename'))
 
 default_install = ['test']
 data_class_default = default_install

@@ -29,6 +29,8 @@ extras = dict(test=test_requirements, packaging=build_requirements)
 
 authors = [
     ("Institute for Disease Modeling - RSE Team", "SWResearch@idmod.org"),
+    ("Shirley Leung", "sleung@idmod.org"),
+    ("Bee Workeneh", "bworkeneh@idmod.org")
 ]
 
 setup(

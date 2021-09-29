@@ -44,7 +44,7 @@ data_not_found = html.Div(
 # define the home_page
 try:
     data_dir = os.getenv('DATA_DIR', None)
-    if data_dir and os.path.exists(data_dir):
+    if data_dir and os.path.exists(data_dir) and len(os.listdir(data_dir)) != 0:
         from components.gene_drive import GeneDriveAIO
 
         gene_drive_component = GeneDriveAIO()
@@ -83,5 +83,6 @@ def display_page(pathname):
 
 if __name__ == '__main__':
     app.run_server(debug=False,
+                   #TODO: switch port to 80
                    port=8050,
                    host='0.0.0.0')

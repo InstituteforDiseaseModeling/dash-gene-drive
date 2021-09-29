@@ -12,10 +12,11 @@ WORKDIR /app
 
 ADD README_Old.md /app
 ADD Gene_Drive /app/service
-RUN cd service && pip install -r requirements.txt
+ADD requirements.txt /app/service
+RUN cd service && pip install -r requirements.txt && git clone https://github.com/InstituteforDiseaseModeling/dash-gene-drive-data.git
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
-
+#TODO: change exposed port
 EXPOSE 8050
 CMD /app/entrypoint.sh

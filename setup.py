@@ -17,9 +17,8 @@ for file_prefix in ['', 'dev_', 'build_']:
         lines = requirements_file.read().split("\n")
         extra_require_files[fk] = []
         for line in lines:
-            if (line[0] == '--') or (line[0] == '#'):
-                pass
-            else:
+            line = line.strip()
+            if line and (line[0] != '-') and (line[0] != '#'):
                 extra_require_files[fk].append(line)
 
 build_requirements = extra_require_files['build']

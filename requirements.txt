@@ -5,7 +5,6 @@
 #    pip-compile
 #
 --index-url=https://packages.idmod.org/api/pypi/pypi-production/simple
-
 brotli==1.0.9
     # via flask-compress
 click==8.0.1
@@ -80,7 +79,3 @@ werkzeug==2.0.1
     # via flask
 wheel==0.37.0
     # via pip-tools
-
-# The following packages are considered to be unsafe in a requirements file:
-# pip
-# setuptools

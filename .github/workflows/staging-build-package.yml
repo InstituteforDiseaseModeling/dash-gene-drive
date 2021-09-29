@@ -12,6 +12,17 @@ on:
       - 'requirements.txt'
       - 'dev_requirements.txt'
       - 'setup.py'
+  workflow_dispatch:
+    branches:
+      # only run this on
+      - 'dev'
+      - 'master'
+      - 'release**'
+    paths:
+      - 'Gene_Drive/**'
+      - 'requirements.txt'
+      - 'dev_requirements.txt'
+      - 'setup.py'
 
 jobs:
   release_Gene_Drive:

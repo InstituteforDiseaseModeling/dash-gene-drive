@@ -8,7 +8,7 @@ on:
       - master
       - release**
     paths:
-      - 'rename/**'
+      - 'Gene_Drive/**'
       - 'requirements.txt'
       - 'dev_requirements.txt'
       - 'setup.py'
@@ -32,8 +32,8 @@ jobs:
       - name: Build and publish
         env:
           TWINE_REPOSITORY_URL: https://packages.idmod.org/api/pypi/idm-pypi-staging/
-          TWINE_USERNAME: ${{ "{{" }} secrets.PYPI_STAGING_USERNAME {{ "}}" }}
-          TWINE_PASSWORD: ${{ "{{" }} secrets.PYPI_STAGING_PASSWORD {{ "}}" }}
+          TWINE_USERNAME: ${{ secrets.PYPI_STAGING_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_STAGING_PASSWORD }}
         run: |
           python setup.py sdist bdist_wheel
           twine upload dist/*

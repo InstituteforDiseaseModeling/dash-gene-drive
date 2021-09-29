@@ -14,7 +14,7 @@ for file_prefix in ['', 'dev_', 'build_']:
     filename = f'{file_prefix}requirements'
     with open(f'{filename}.txt') as requirements_file:
         fk = file_prefix.strip("_") if file_prefix else filename
-        lines = requirements_file.read().strip().split("\n")
+        lines = requirements_file.read().split("\n")
         extra_require_files[fk] = []
         for line in lines:
             if (line[0] == '--') or (line[0] == '#'):

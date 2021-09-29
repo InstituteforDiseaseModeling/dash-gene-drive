@@ -11,7 +11,7 @@ RUN mkdir -p /app/service/csvs
 WORKDIR /app
 
 ADD README_Old.md /app
-ADD rename /app/service
+ADD Gene_Drive /app/service
 RUN cd service && pip install -r requirements.txt
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh

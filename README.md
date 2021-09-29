@@ -8,7 +8,7 @@
 # User Installation
 
 ```bash
-pip install rename --index-url=https://packages.idmod.org/api/pypi/idm-pypi-staging/
+pip install Gene_Drive --index-url=https://packages.idmod.org/api/pypi/idm-pypi-staging/
 ```
 
 ## Pre-requisites

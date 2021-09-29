@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""The setup script for rename"""
+"""The setup script for Gene_Drive"""
 
 from setuptools import setup, find_packages
 
@@ -45,7 +45,7 @@ setup(
     long_description=readme,
     include_package_data=True,
     keywords='modeling, IDM',
-    name='rename',
+    name='Gene_Drive',
     packages=find_packages(),
     setup_requires=[],
     python_requires='>=3.6.*, !=3.7.0, !=3.7.1, !=3.7.2',

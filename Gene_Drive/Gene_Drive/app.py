@@ -1,12 +1,11 @@
 import dash
 from dash import dcc, html
 import dash_bootstrap_components as dbc
-
+import os
 from components.about import about
 from components.header import header
 from components.footer import footer
 from components.page_not_found import page_not_found
-from components.gene_drive import GeneDriveAIO
 
 external_stylesheets = [dbc.themes.BOOTSTRAP,
                         'https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -34,9 +33,26 @@ def layout(component=None):
         ])
 
 
+# define data_not_found page // different from 404
+data_not_found = html.Div(
+                          style={"height": "90vh"},
+                          className="title",
+                          children=[
+                              html.H1("Error", className="display-1 text-center"),
+                              html.H1("Data not found", className="display-1 text-center")
+                          ])
 # define the home_page
-# replace sample_chart with your own chart or component
-gene_drive_component = GeneDriveAIO()
+try:
+    data_dir = os.getenv('DATA_DIR', None)
+    if data_dir and os.path.exists(data_dir):
+        from components.gene_drive import GeneDriveAIO
+
+        gene_drive_component = GeneDriveAIO()
+    else:
+        gene_drive_component = data_not_found
+except:
+    gene_drive_component = data_not_found
+
 home_page = layout(gene_drive_component)
 
 # define the about_page

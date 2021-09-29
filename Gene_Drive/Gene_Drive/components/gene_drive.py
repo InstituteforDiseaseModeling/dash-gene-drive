@@ -82,7 +82,7 @@ num_yrs = 8  # length of sim
 num_seeds = 20  # num of seeds per sim
 elim_day = 2555  # day on which elim fraction is calculated
 
-data_dir = r'..\..\dash-gene-drive-data'
+data_dir = os.getenv('DATA_DIR',None)
 
 ##
 # -------- Load data
@@ -214,7 +214,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-elim-prob-matrices",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -329,7 +329,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-elim-time-matrices",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -444,7 +444,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-prev-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -558,7 +558,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-av-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -672,7 +672,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-ivf-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -786,7 +786,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-ivn-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -902,7 +902,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-ef-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -1017,7 +1017,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-wt-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
@@ -1133,7 +1133,7 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.H2(
                                 id="display-rs-ts",
-                                className="text-center text-secondary shown",
+                                className="text-center text-secondary shown mt-5 pt-5",
                                 children="Click on 'RUN' to display graphs/matrices."
                             ),
                             html.Div([

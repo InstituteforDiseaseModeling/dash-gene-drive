@@ -7,7 +7,7 @@ import argparse
 import os
 from livereload import Server, shell  # noqa: I900
 
-PACKAGE_NAME = '{{ cookiecutter.library_name}}'
+PACKAGE_NAME = Gene_Drive
 
 parser = argparse.ArgumentParser("Serves and autobuilds the docs")
 parser.add_argument('--port', type=int, default=8000, help="Port to serve docs on.")

@@ -98,5 +98,5 @@ bump-major-dry-run: ## bump the major version(dry run)
 	bump2version major --dry-run --allow-dirty --verbose
 
 # Extra
-licenses: ## Generate Notices.txt
-	pip-licenses --output-file NOTICES.txt
+licenses: ## Generate LICENSES.txt
+	pip-licenses --output-file LICENSES.txt

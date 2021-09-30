@@ -1,3 +1,7 @@
+body{
+    font-family: '"Roboto", "Helvetica", "Arial", "sans-serif"';
+}
+
 ._dash-loading-callback {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -30,7 +34,7 @@
 }
 
 .contentText {
-        font-family: '"Roboto", "Helvetica", "Arial", "sans-serif"';
+
         font-size: 16px;
         text-align: justify;
         text-justify: inter-word;

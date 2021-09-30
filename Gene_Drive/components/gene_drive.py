@@ -215,7 +215,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-elim-prob-matrices",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='elim-prob-matrices',
@@ -330,7 +330,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-elim-time-matrices",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='elim-time-matrices',
@@ -445,7 +445,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-prev-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='prev-ts',
@@ -559,7 +559,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-av-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='av-ts',
@@ -673,7 +673,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-ivf-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='ivf-ts',
@@ -787,7 +787,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-ivn-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='ivn-ts',
@@ -903,7 +903,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-ef-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='ef-ts',
@@ -1018,7 +1018,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-wt-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='wt-ts',
@@ -1134,10 +1134,11 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-rs-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click on 'RUN' to display graphs/matrices."
+                                children="Click 'RUN' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='rs-ts',
+                                          className="hidden",
                                           style={'width': '100%', 'height': '80vh'})
                             ])
                         ])

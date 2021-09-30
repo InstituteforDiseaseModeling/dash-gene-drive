@@ -2,7 +2,8 @@ from dash import html
 
 error_style = {
     "textAlign": "center",
-    "color": "#F1815E"
+    "color": "#F1815E",
+    "height": "95vh"
 }
 page_not_found = html.Div(style=error_style,
                           children=[

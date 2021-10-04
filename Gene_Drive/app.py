@@ -50,7 +50,8 @@ try:
         gene_drive_component = GeneDriveAIO()
     else:
         gene_drive_component = data_not_found
-except:
+except Exceptioin as e:
+    print(e)
     gene_drive_component = data_not_found
 
 home_page = layout(gene_drive_component)

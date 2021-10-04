@@ -1,8 +1,6 @@
-.PHONY: help clean lint test test-all test-failed test-smoke test-report coverage-report coverage coverage-smoke coverage-all coverage-report-view dist release-staging bump-release bump-release-dry-run bump-minor bump-minor-dry-run bump-major bump-major-dry-run bump-patch bump-patch-dry-run
+.PHONY: help clean dist release-staging bump-release bump-release-dry-run bump-minor bump-minor-dry-run bump-major bump-major-dry-run bump-patch bump-patch-dry-run
 .EXPORT_ALL_VARIABLES:
-# Get dev scripts from any location
-mkfile_path := $(lastword $(MAKEFILE_LIST))
-mkfile_dir := $(dir $(mkfile_path))
+
 # Platform Independent options for common commands
 MV?=mv
 RM?=rm
@@ -18,48 +16,19 @@ PACKAGE_NAME=Gene_Drive
 # Makefile rules
 
 help:
-	help-from-makefile -f $(mkfile_path)
+	$(PDS)get_help_from_makefile.py
 
-setup-dev: ## Install all dependencies needed for development
-	$(PDS)bootstrap.py
+setup-dev:  ## Setup packages in dev mode
+	python ./.dev_scripts/bootstrap.py
 
 clean: ## Clean most of the temp-data from the project
-	$(MAKE) -C tests clean
-	-rm -rf *.pyc *.pyo *.done *.log .coverage dist build **/__pycache__
+	$(CLDIR) --file-patterns "*.py[co],*.done,*.log,**/.coverage" \
+		--dir-patterns "**/__pycache__,**/htmlcov,**/.pytest_cache" --directories "dist,build"
+	$(PDR) -wd "docs" -ex "make clean"
 
-clean-all: clean ## Deleting package info hides plugins so we only want to do that for packaging
-	-rm -rf **/*.egg-info/
-
-
-## Tests
-#############
-
-test: ## Run our tests
-	$(MAKE) -C tests $@
-
-test-all: ## Run all our tests
-	$(MAKE) -C tests $@
-
-test-failed: ## Run only previously failed tests
-	$(MAKE) -C tests $@
-
-test-report: ## Launch test report in browser
-	$(MAKE) -C tests $@
-
-coverage-report: coverage ## Generate HTML report from coverage. Requires running coverage run first(coverage, coverage-smoke, coverage-all)
-	$(MAKE) -C tests $@
-
-coverage-report-view: coverage-report
-	$(MAKE) -C tests $@
-
-coverage: clean ## Generate a code-coverage report
-	$(MAKE) -C tests $@
-
-coverage-smoke: clean ## Generate a code-coverage report
-	$(MAKE) -C tests $@
-
-coverage-all: ## Generate a code-coverage report using all tests
-	$(MAKE) -C tests $@
+clean-all:  ## Deleting package info hides plugins so we only want to do that for packaging
+	@make clean
+	$(CLDIR) --dir-patterns "**/*.egg-info/"
 
 
 # Release related rules

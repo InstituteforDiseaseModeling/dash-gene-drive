@@ -8,7 +8,7 @@ services:
       - "DEBUG=0"
       - "DATA_DIR=/app/service/csvs"
     volumes:
-      - ./dash-gene-drive-data:/app/service/csvs
+      - ../dash-gene-drive-data:/app/service/csvs
     container_name: gene_drive_staging
     ports:
       #TODO: change port mapping

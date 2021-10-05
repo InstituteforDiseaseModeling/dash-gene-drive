@@ -9,5 +9,5 @@ else
     echo "Launching Gunicorn"
     cd /app/service
     #TODO:Change port
-    gunicorn app:server -b 0.0.0.0:8050
+    gunicorn app:server -b 0.0.0.0:8050 --timeout 120
 fi

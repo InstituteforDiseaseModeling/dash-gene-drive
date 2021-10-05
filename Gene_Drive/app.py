@@ -50,7 +50,7 @@ try:
         gene_drive_component = GeneDriveAIO()
     else:
         gene_drive_component = data_not_found
-except Exceptioin as e:
+except Exception as e:
     print(e)
     gene_drive_component = data_not_found
 

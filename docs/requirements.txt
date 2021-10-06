@@ -7,4 +7,3 @@ sphinxcontrib-napoleon~=0.7
 sphinxcontrib-programoutput~=0.16
 sphinx~=3.3.1
 sphinxext.remoteliteralinclude
-sphinx-copybutton~=0.4.0

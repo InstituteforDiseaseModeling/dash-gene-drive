@@ -25,7 +25,7 @@ if sys.platform == "win32" and 'VIRTUAL_ENV' in os.environ:
 # To use simply run
 # python bootstrap.py
 
-base_directory = abspath(join(dirname(__file__), '../Gene_Drive'))
+base_directory = abspath(join(dirname(__file__), '..'))
 
 default_install = ['test']
 data_class_default = default_install

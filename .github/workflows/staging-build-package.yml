@@ -28,8 +28,7 @@ jobs:
   release_Gene_Drive:
     name: "Release Gene_Drive"
     runs-on: ubuntu-latest
-#    TODO: uncomment line below after obtaining access to https://packages.idmod.org/api/pypi/idm-pypi-staging
-#    if: "!contains(github.event.head_commit.message, 'Bump version: ')"
+    if: "contains(github.event.head_commit.message, 'Bump version: ')"
     steps:
       - name: Set up Python
         uses: actions/setup-python@v1

@@ -1,6 +1,5 @@
 import dash
 from dash import dcc, html
-import dash_bootstrap_components as dbc
 import os
 from components.about import about
 from components.header import header

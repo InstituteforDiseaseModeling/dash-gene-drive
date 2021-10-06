@@ -1,10 +1,10 @@
 import dash
 from dash import dcc, html
 import os
-from components.about import about
-from components.header import header
-from components.footer import footer
-from components.page_not_found import page_not_found
+from .components.about import about
+from .components.header import header
+from .components.footer import footer
+from .components.page_not_found import page_not_found
 
 
 external_stylesheets = ['./assets/third_party_styles/bootstrap.min.css']

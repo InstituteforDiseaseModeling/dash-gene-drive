@@ -547,6 +547,7 @@ class GeneDriveAIO(html.Div):
                                     # run button
                                     html.Div(
                                         className="col-1 border-left",
+                                        id="run-av-ts",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",

@@ -28,7 +28,7 @@ jobs:
   release_Gene_Drive:
     name: "Release Gene_Drive"
     runs-on: ubuntu-latest
-#    if: "contains(github.event.head_commit.message, 'Bump version: ')"
+    if: "contains(github.event.head_commit.message, 'Bump version: ')"
     steps:
       - name: Set up Python
         uses: actions/setup-python@v1
@@ -46,6 +46,7 @@ jobs:
           TWINE_REPOSITORY_URL: https://packages.idmod.org/api/pypi/idm-pypi-staging/
           TWINE_USERNAME: ${{ secrets.PYPI_STAGING_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_STAGING_PASSWORD }}
+          DISTUTILS_DEBUG: 1
         run: |
-          python setup.py sdist bdist_wheel -v
+          python setup.py sdist bdist_wheel
           twine upload dist/*

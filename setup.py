@@ -24,7 +24,7 @@ for file_prefix in ['', 'dev_', 'build_']:
 build_requirements = extra_require_files['build']
 test_requirements = extra_require_files['dev'] + build_requirements
 
-extras = dict(test=test_requirements, packaging=build_requirements)
+extras = dict(test=test_requirements, packaging=build_requirements, dev=extra_require_files['dev'])
 
 
 authors = [

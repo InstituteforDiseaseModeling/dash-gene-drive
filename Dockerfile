@@ -12,12 +12,12 @@ WORKDIR /app
 
 ADD README.md .
 ADD main.py ./service
-ADD .dev_scripts .
+ADD .dev_scripts ./.dev_scripts
 ADD docs .
-ADD Gene_Drive .
+ADD Gene_Drive ./Gene_Drive
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
-RUN python .dev_scripts/bootstrap.py
+RUN python ./.dev_scripts/bootstrap.py
 
 
 EXPOSE 8050

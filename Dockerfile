@@ -17,7 +17,7 @@ ADD docs .
 ADD Gene_Drive .
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
-RUN python ./.dev_scripts/bootstrap.py
+RUN python .dev_scripts/bootstrap.py
 
 
 EXPOSE 8050

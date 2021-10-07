@@ -44,7 +44,7 @@ data_not_found = html.Div(
 try:
     data_dir = os.getenv('DATA_DIR', None)
     if data_dir and os.path.exists(data_dir) and len(os.listdir(data_dir)) != 0:
-        from components.gene_drive import GeneDriveAIO
+        from .components.gene_drive import GeneDriveAIO
 
         gene_drive_component = GeneDriveAIO()
     else:

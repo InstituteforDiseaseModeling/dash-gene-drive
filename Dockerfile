@@ -18,6 +18,7 @@ ADD Gene_Drive ./Gene_Drive
 ADD entrypoint.sh .
 ADD setup.py .
 ADD Makefile .
+ADD MANIFEST.in .
 RUN chmod +x ./entrypoint.sh
 RUN python ./.dev_scripts/bootstrap.py
 

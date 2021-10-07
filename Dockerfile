@@ -10,14 +10,15 @@ ENV PATH=/app:${PATH}
 RUN mkdir -p /app/service/csvs
 WORKDIR /app
 
-ADD README.md /app
-ADD main.py /app/service
-ADD .dev_scripts /app
-ADD docs /app
-ADD Gene_Drive /app
-RUN cd app && python ./.dev_scripts/bootstrap.py
+ADD README.md .
+ADD main.py ./service
+ADD .dev_scripts .
+ADD docs .
+ADD Gene_Drive .
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
+RUN python ./.dev_scripts/bootstrap.py
+
 
 EXPOSE 8050
 CMD /app/entrypoint.sh

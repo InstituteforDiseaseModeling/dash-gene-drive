@@ -1,6 +1,6 @@
 import dash
 from dash import dcc, html
-import os
+import os, sys, traceback
 from .components.about import about
 from .components.header import header
 from .components.footer import footer
@@ -49,8 +49,10 @@ try:
         gene_drive_component = GeneDriveAIO()
     else:
         gene_drive_component = data_not_found
-except Exception as e:
-    print(e)
+except Exception:
+    print("-" * 60)
+    traceback.print_exc(file=sys.stdout)
+    print("-" * 60)
     gene_drive_component = data_not_found
 
 home_page = layout(gene_drive_component)
@@ -82,7 +84,5 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=False,
-                   #TODO: switch port to 80
-                   port=8050,
-                   host='0.0.0.0')
+    print("This file is not executable")
+

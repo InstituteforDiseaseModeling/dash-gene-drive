@@ -10,13 +10,11 @@ ENV PATH=/app:${PATH}
 RUN mkdir -p /app/service/csvs
 WORKDIR /app
 
-ADD README_Old.md /app
-ADD Gene_Drive /app/service
-ADD requirements.txt /app/service
-RUN cd service && pip install -r requirements.txt
+ADD README.md /app
+ADD main.py /app/service
+RUN make setup-dev
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
-#TODO: change exposed port
 EXPOSE 8050
 CMD /app/entrypoint.sh

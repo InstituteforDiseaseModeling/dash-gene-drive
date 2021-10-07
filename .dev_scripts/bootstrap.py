@@ -51,6 +51,7 @@ def execute(cmd: List['str'], cwd: str = base_directory, ignore_error: bool = Fa
         CalledProcessError if the return code was not 0
     """
     logger.debug(f'Running {" ".join(cmd)}')
+    print(f'Running {" ".join(cmd)}')
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=cwd)
     yield from iter(process.stdout.readline, "")
     process.stdout.close()
@@ -87,7 +88,7 @@ def install_base_environment(pip_url):
     for install_dir in [join(base_directory, 'docs')]:
         for line in execute(["pip", "install", "-r", "requirements.txt"], cwd=install_dir):
             process_output(line)
-    for line in execute(["pip", "install", "-e", ".[dev]", f"--extra-index-url={pip_url}"], cwd=base_directory):
+    for line in execute(["pip", "install", "-e", ".", f"--extra-index-url={pip_url}"], cwd=base_directory):
         process_output(line)
 
 

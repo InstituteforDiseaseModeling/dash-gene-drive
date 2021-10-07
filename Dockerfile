@@ -13,7 +13,7 @@ WORKDIR /app
 ADD README.md .
 ADD main.py ./service
 ADD .dev_scripts ./.dev_scripts
-ADD docs .
+ADD docs ./docs
 ADD Gene_Drive ./Gene_Drive
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh

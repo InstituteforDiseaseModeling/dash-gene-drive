@@ -12,7 +12,7 @@ WORKDIR /app
 
 ADD README.md /app
 ADD main.py /app/service
-RUN make setup-dev
+RUN python ./.dev_scripts/bootstrap.py
 ADD entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 

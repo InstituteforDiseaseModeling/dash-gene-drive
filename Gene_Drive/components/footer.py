@@ -10,11 +10,10 @@ footer_style = {
     "width": "100%",
     "backgroundColor": "#24323c",
     "color": "white",
-    "minHeight": 65,
     "zIndex": 2000
 }
 logo_style = {
-    "display": "inline-bock",
+    "display": "inline-block",
     "margin": "15px 18px 10px 25px",
     "height": 35,
 }
@@ -39,13 +38,15 @@ terms_style = {
 }
 footer = html.Footer(style=footer_style, children=[
     dbc.Row(
-        [
+        className="m-0",
+        children=[
             dbc.Col(
-                html.Img(style=logo_style, src='../assets/bmgf-logo-white.png')
+                html.Img(style=logo_style, className="m-0 p-1", src='../assets/bmgf-logo-white.png')
             ),
             dbc.Col(
                 [
                     html.Div(style=copy_text_style,
+                             className="m-0",
                              children=[
                                  html.Span(f"1999-{current_year} Bill & Melinda Gates Foundation"),
                                  html.Br(),
@@ -56,6 +57,7 @@ footer = html.Footer(style=footer_style, children=[
             ),
             dbc.Col(
                 html.Div(style=terms_style,
+                         className="m-0",
                          children=[
                              html.A(style=terms_style,
                                     children=[
@@ -74,7 +76,7 @@ footer = html.Footer(style=footer_style, children=[
                          )
             ),
             dbc.Col(
-                html.Img(style=logo_style, src='../assets/idmlogo55.png')
+                html.Img(style=logo_style, className="m-0", src='../assets/idmlogo55.png')
             )
 
         ]

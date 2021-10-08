@@ -6,8 +6,14 @@ import pandas as pd
 import plotly.express as px
 import plotly.figure_factory as ff
 from plotly.subplots import make_subplots
-
+import plotly.colors as colors
 ##
+
+greens_full = colors.get_colorscale('greens')
+greens = greens_full[1:]
+for i in range(0, len(greens)):
+    greens[i][0] = i/(len(greens)-1)
+
 # -------- Choose experiment and set up params
 svs_by_drive_type = {
     'Classic': ['rc', 'd', 'rr0', 'sne'],
@@ -215,7 +221,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-elim-prob-matrices",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='elim-prob-matrices',
@@ -330,7 +336,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-elim-time-matrices",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='elim-time-matrices',
@@ -340,7 +346,10 @@ class GeneDriveAIO(html.Div):
                         ]),
 
                     dcc.Tab(
-                        className="p-1", label='PfHRP2 prevalence time series', children=[
+                        className="p-1",
+                        label='PfHRP2 prevalence time series',
+
+                        children=[
 
                             html.H2(className="m-1 text-center", children='PfHRP2 prevalence'),
                             html.Div(
@@ -445,7 +454,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-prev-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='prev-ts',
@@ -560,7 +569,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-av-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='av-ts',
@@ -674,7 +683,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-ivf-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='ivf-ts',
@@ -788,7 +797,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-ivn-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='ivn-ts',
@@ -904,7 +913,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-ef-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='ef-ts',
@@ -1019,7 +1028,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-wt-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='wt-ts',
@@ -1135,7 +1144,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(
                                 id="display-rs-ts",
                                 className="text-center text-secondary shown mt-5 pt-5",
-                                children="Click 'RUN' to display graphs/matrices."
+                                children="Click 'Run' to display graphs/matrices."
                             ),
                             html.Div([
                                 dcc.Graph(id='rs-ts',
@@ -1480,7 +1489,7 @@ class GeneDriveAIO(html.Div):
                     zmin=0,
                     zmax=1,
                     showscale=True,
-                    colorscale='YlOrBr_r')
+                    colorscale=greens)
                 )
 
                 # - Update annotation axes
@@ -1590,7 +1599,7 @@ class GeneDriveAIO(html.Div):
                     zmin=2.5,
                     zmax=num_yrs,
                     showscale=True,
-                    colorscale='YlOrBr')
+                    colorscale=greens)
                 )
 
                 # - Update annotation axes

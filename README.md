@@ -25,6 +25,8 @@ When setting up your environment for the first time, you can use the following i
    > git clone https://github.com/InstituteforDiseaseModeling/dash-gene-drive
    ```
 2) Clone the data repository: 
+   First download and install [Git LFS](https://git-lfs.github.com/) as the csv files are large. 
+   Then clone the repo. 
    ```bash
    > git clone https://github.com/InstituteforDiseaseModeling/dash-gene-drive-data
    ```

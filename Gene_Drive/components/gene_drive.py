@@ -7,6 +7,8 @@ import plotly.express as px
 import plotly.figure_factory as ff
 from plotly.subplots import make_subplots
 import plotly.colors as colors
+from .gene_drive_greeting import GeneDriveGreetingAIO
+
 ##
 
 greens_full = colors.get_colorscale('greens')
@@ -112,6 +114,7 @@ class GeneDriveAIO(html.Div):
     def __init__(self):
         super().__init__([
             html.Div([
+                GeneDriveGreetingAIO(),
                 dcc.Tabs([
 
                     dcc.Tab(
@@ -119,7 +122,7 @@ class GeneDriveAIO(html.Div):
 
                             html.H2(className="m-1 text-center", children='Elimination probabilities'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -207,7 +210,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -235,7 +238,7 @@ class GeneDriveAIO(html.Div):
 
                             html.H2(className="m-1 text-center", children='Years to elimination'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -322,7 +325,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -353,7 +356,7 @@ class GeneDriveAIO(html.Div):
 
                             html.H2(className="m-1 text-center", children='PfHRP2 prevalence'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -440,7 +443,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -468,7 +471,7 @@ class GeneDriveAIO(html.Div):
 
                             html.H2(className="m-1 text-center", children='Adult vectors'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -555,7 +558,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         id="run-av-ts",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
@@ -583,7 +586,7 @@ class GeneDriveAIO(html.Div):
 
                             html.H2(className="m-1 text-center", children='Infectious vector fraction'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -669,7 +672,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -697,7 +700,7 @@ class GeneDriveAIO(html.Div):
 
                             html.H2(className="m-1 text-center", children='Infectious vectors'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -783,7 +786,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -812,7 +815,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(className="m-1 text-center",
                                     children='Effector frequency (or drive+effector in classic drive case)'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -899,7 +902,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -928,7 +931,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(className="m-1 text-center",
                                     children='Wild type frequency (at effector locus in integral drive case)'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -1014,7 +1017,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
@@ -1044,7 +1047,7 @@ class GeneDriveAIO(html.Div):
                             html.H2(className="m-1 text-center",
                                     children='Resistance frequency (at effector locus in integral drive case)'),
                             html.Div(
-                                className="container-fluid row",
+                                className="container-fluid row m-0",
                                 children=[
                                     # drop downs
                                     html.Div(
@@ -1130,7 +1133,7 @@ class GeneDriveAIO(html.Div):
                                     ),
                                     # run button
                                     html.Div(
-                                        className="col-1 border-left",
+                                        className="col-1 border-left pr-0",
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",

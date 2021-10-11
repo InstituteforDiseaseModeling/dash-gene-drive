@@ -1,4 +1,4 @@
-from dash import html, dcc, callback
+from dash import html, dcc, callback, clientside_callback
 from dash.dependencies import Input, Output, State
 import numpy as np
 import os
@@ -118,7 +118,9 @@ class GeneDriveAIO(html.Div):
                 dcc.Tabs([
 
                     dcc.Tab(
-                        className="p-1", label='Elimination probability matrices', children=[
+                        className="p-1",
+                        label='Elimination probability matrices',
+                        children=[
 
                             html.H2(className="m-1 text-center", children='Elimination probabilities'),
                             html.Div(
@@ -351,7 +353,7 @@ class GeneDriveAIO(html.Div):
                     dcc.Tab(
                         className="p-1",
                         label='PfHRP2 prevalence time series',
-
+                        id = "prev-ts-tab",
                         children=[
 
                             html.H2(className="m-1 text-center", children='PfHRP2 prevalence'),
@@ -467,7 +469,10 @@ class GeneDriveAIO(html.Div):
                         ]),
 
                     dcc.Tab(
-                        className="p-1", label='Adult vectors time series', children=[
+                        className="p-1",
+                        id="av-ts-tab",
+                        label='Adult vectors time series',
+                        children=[
 
                             html.H2(className="m-1 text-center", children='Adult vectors'),
                             html.Div(
@@ -582,7 +587,10 @@ class GeneDriveAIO(html.Div):
                         ]),
 
                     dcc.Tab(
-                        className="p-1", label='Infectious fraction time series', children=[
+                        className="p-1",
+                        id="ivf-ts-tab",
+                        label='Infectious fraction time series',
+                        children=[
 
                             html.H2(className="m-1 text-center", children='Infectious vector fraction'),
                             html.Div(
@@ -696,7 +704,10 @@ class GeneDriveAIO(html.Div):
                         ]),
 
                     dcc.Tab(
-                        className="p-1", label='Infectious vectors time series', children=[
+                        className="p-1",
+                        id="ivn-ts-tab",
+                        label='Infectious vectors time series',
+                        children=[
 
                             html.H2(className="m-1 text-center", children='Infectious vectors'),
                             html.Div(
@@ -810,7 +821,10 @@ class GeneDriveAIO(html.Div):
                         ]),
 
                     dcc.Tab(
-                        className="p-1", label='Effector frequency time series', children=[
+                        className="p-1",
+                        id="ef-ts-tab",
+                        label='Effector frequency time series',
+                        children=[
 
                             html.H2(className="m-1 text-center",
                                     children='Effector frequency (or drive+effector in classic drive case)'),
@@ -926,7 +940,10 @@ class GeneDriveAIO(html.Div):
                         ]),
 
                     dcc.Tab(
-                        className="p-1", label='Wild type frequency time series', children=[
+                        className="p-1",
+                        id="wt-ts-tab",
+                        label='Wild type frequency time series',
+                        children=[
 
                             html.H2(className="m-1 text-center",
                                     children='Wild type frequency (at effector locus in integral drive case)'),
@@ -1042,7 +1059,9 @@ class GeneDriveAIO(html.Div):
 
                     dcc.Tab(
                         className="p-1",
-                        label='Resistance frequency time series', children=[
+                        id="rs-ts-tab",
+                        label='Resistance frequency time series',
+                        children=[
 
                             html.H2(className="m-1 text-center",
                                     children='Resistance frequency (at effector locus in integral drive case)'),
@@ -1161,8 +1180,35 @@ class GeneDriveAIO(html.Div):
         ])
 
     # ---------------------------------------------
+    # Callbacks for updating tab labels so that
+    # "time series" is in its own line
+    # ---------------------------------------------
+    tab_label_updater = """
+    function(tab_id) {
+        let label = document.evaluate(`//*[@id="${tab_id}"]/span`, document, null, XPathResult.ANY_TYPE, null);
+        if(label) {   
+            try {
+                label_to_edit = label.iterateNext()
+                label_to_edit.innerHTML = label_to_edit.textContent.replace("time series", "<br>time series");
+            }catch(err){
+                console.log(err)
+            }
+        }
+    } 
+    """
+    time_series_tab_ids = ["prev-ts-tab","av-ts-tab","ivf-ts-tab",
+                           "ivn-ts-tab", "ef-ts-tab","wt-ts-tab","rs-ts-tab"]
+    for tab_id in time_series_tab_ids:
+        clientside_callback(
+            tab_label_updater,
+            Output(tab_id, 'value'),
+            Input(tab_id, 'id')
+        )
+
+    # ---------------------------------------------
     # Callbacks for dropdowns to update dropdowns
     # ---------------------------------------------
+
     # ---- Elim prob matrices
     @callback(
         [Output('outer-xvar0', 'options'),

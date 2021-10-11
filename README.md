@@ -19,7 +19,7 @@ pip install Gene_Drive --index-url=https://packages.idmod.org/api/pypi/idm-pypi-
 
 When setting up your environment for the first time, you can use the following instructions
 
-## First Time Setup
+## Local Setup
 1) Clone the business logic/UI repository:
    ```bash
    > git clone https://github.com/InstituteforDiseaseModeling/dash-gene-drive
@@ -39,7 +39,7 @@ When setting up your environment for the first time, you can use the following i
 6) If you are on windows, run `pip install py-make --upgrade --force-reinstall`
 7) Then run `python ./.dev_scripts/bootstrap.py`. This will install all the tools. 
 8) Run the app 
-```angular2html
+```
 python main.py
 ```
 
@@ -52,3 +52,8 @@ setup-dev   -   Set up packages in dev mode
 ```
 On Windows, you can use `pymake` instead of `make`
 
+## Container Setup]
+```
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml up
+```

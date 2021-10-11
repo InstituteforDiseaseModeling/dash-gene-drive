@@ -15,12 +15,14 @@ ADD main.py ./service
 ADD .dev_scripts ./.dev_scripts
 ADD docs ./docs
 ADD Gene_Drive ./Gene_Drive
-ADD entrypoint.sh .
 ADD setup.py .
-ADD Makefile .
-ADD MANIFEST.in .
-RUN chmod +x ./entrypoint.sh
+ADD dev_requirements.txt .
+ADD build_requirements.txt .
+ADD requirements.txt .
 RUN python ./.dev_scripts/bootstrap.py
+
+ADD entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
 
 
 EXPOSE 8050

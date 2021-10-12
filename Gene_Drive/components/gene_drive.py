@@ -1,6 +1,8 @@
+import dash
 import dash_bootstrap_components as dbc
 from dash import html, dcc, callback, clientside_callback
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 import numpy as np
 import os
 import pandas as pd
@@ -209,10 +211,22 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-elim-prob-matrices",
-                                            n_clicks=0,
-                                            style={"height": "100%"}
+                                            style={"height": "100%"},
                                         )
-                                    )
+                                    ),
+                                    html.Div(
+                                        className="col-12 mt-1 pr-0",
+                                        children=[
+                                            dbc.Alert(
+                                                id="elim-prob-matrices-err-msg",
+                                                children="Outer x-var, Outer y-var, Matrix x-var ,and Matrix y-var "
+                                                         "values must all be different",
+                                                color="danger",
+                                                dismissable=False,
+                                                className="removed mb-0 p-1"
+                                            ),
+                                        ]
+                                    ),
                                 ]
                             ),
                             html.H2(
@@ -223,7 +237,7 @@ class GeneDriveAIO(html.Div):
                             html.Div([
                                 dcc.Graph(id='elim-prob-matrices',
                                           className="removed",
-                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
+                                          style={'width': '100%', 'height': 'calc(100vh - 310px)'})
                             ])
                         ]),
 
@@ -315,10 +329,23 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-elim-time-matrices",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
-                                    )
+                                    ),
+                                    html.Div(
+                                        className="col-12 mt-1 pr-0",
+                                        children=[
+                                            dbc.Alert(
+                                                id="elim-time-matrices-err-msg",
+                                                children="Outer x-var, Outer y-var, Matrix x-var ,and Matrix y-var "
+                                                         "values must all be different",
+                                                color="danger",
+                                                dismissable=False,
+                                                className="removed mb-0 p-1"
+                                            ),
+                                        ]
+                                    ),
                                 ]
                             ),
                             html.H2(
@@ -329,7 +356,7 @@ class GeneDriveAIO(html.Div):
                             html.Div([
                                 dcc.Graph(id='elim-time-matrices',
                                           className='removed',
-                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
+                                          style={'width': '100%', 'height': 'calc(100vh - 310px)'})
                             ])
                         ]),
 
@@ -424,7 +451,7 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-prev-ts",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -533,7 +560,7 @@ class GeneDriveAIO(html.Div):
                                         children=html.Button(
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -642,7 +669,7 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-ivf-ts",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -751,7 +778,7 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-ivn-ts",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -862,7 +889,7 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-ef-ts",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -972,7 +999,7 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-wt-ts",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -1082,7 +1109,7 @@ class GeneDriveAIO(html.Div):
                                             className="btn btn-lg btn-primary btn-block",
                                             children="Run",
                                             id="run-rs-ts",
-                                            n_clicks=0,
+                                            
                                             style={"height": "100%"}
                                         )
                                     )
@@ -1155,14 +1182,32 @@ class GeneDriveAIO(html.Div):
         [Output('outer-xvar0', 'value'),
          Output('outer-yvar0', 'value'),
          Output('matrix-xvar0', 'value'),
-         Output('matrix-yvar0', 'value')],
+         Output('matrix-yvar0', 'value'),
+         Output('elim-prob-matrices-err-msg', 'className'),
+         Output('run-elim-prob-matrices', 'disabled')],
         [Input('outer-xvar0', 'options'),
          Input('outer-yvar0', 'options'),
          Input('matrix-xvar0', 'options'),
-         Input('matrix-yvar0', 'options')])
-    def set_sv_value(outer_xvar_opts, outer_yvar_opts, matrix_xvar_opts, matrix_yvar_opts):
-        return outer_xvar_opts[0]['value'], outer_yvar_opts[1]['value'], \
-               matrix_xvar_opts[2]['value'], matrix_yvar_opts[3]['value']
+         Input('matrix-yvar0', 'options'),
+         Input('outer-xvar0', 'value'),
+         Input('outer-yvar0', 'value'),
+         Input('matrix-xvar0', 'value'),
+         Input('matrix-yvar0', 'value')
+         ])
+    def set_sv_value(outer_xvar_opts, outer_yvar_opts, matrix_xvar_opts, matrix_yvar_opts,
+                     outer_xvar,outer_yvar,matrix_xvar,matrix_yvar):
+        error_response = dash.no_update, dash.no_update, dash.no_update, dash.no_update, "shown mb-0 p-1", True
+        success_response = outer_xvar, outer_yvar, matrix_xvar, matrix_yvar, "removed mb-0 p-1", False
+
+        ctx = dash.callback_context
+        if len(ctx.triggered) == 1:
+            if len(set([outer_xvar, outer_yvar, matrix_xvar, matrix_yvar])) != 4:
+                return error_response
+            else:
+                return success_response
+        else:
+            return outer_xvar_opts[0]['value'], outer_yvar_opts[1]['value'], \
+               matrix_xvar_opts[2]['value'], matrix_yvar_opts[3]['value'], "removed mb-0 p-1", False
 
     # ---- Elim time matrices
     @callback(
@@ -1185,14 +1230,32 @@ class GeneDriveAIO(html.Div):
         [Output('outer-xvar1', 'value'),
          Output('outer-yvar1', 'value'),
          Output('matrix-xvar1', 'value'),
-         Output('matrix-yvar1', 'value')],
+         Output('matrix-yvar1', 'value'),
+         Output('elim-time-matrices-err-msg', 'className'),
+         Output('run-elim-time-matrices', 'disabled')],
         [Input('outer-xvar1', 'options'),
          Input('outer-yvar1', 'options'),
          Input('matrix-xvar1', 'options'),
-         Input('matrix-yvar1', 'options')])
-    def set_sv_value(outer_xvar_opts, outer_yvar_opts, matrix_xvar_opts, matrix_yvar_opts):
-        return outer_xvar_opts[0]['value'], outer_yvar_opts[1]['value'], \
-               matrix_xvar_opts[2]['value'], matrix_yvar_opts[3]['value']
+         Input('matrix-yvar1', 'options'),
+         Input('outer-xvar1', 'value'),
+         Input('outer-yvar1', 'value'),
+         Input('matrix-xvar1', 'value'),
+         Input('matrix-yvar1', 'value')
+         ])
+    def set_sv_value(outer_xvar_opts, outer_yvar_opts, matrix_xvar_opts, matrix_yvar_opts,
+                     outer_xvar, outer_yvar,matrix_xvar, matrix_yvar):
+        error_response = dash.no_update, dash.no_update, dash.no_update, dash.no_update, "shown", True
+        success_response = outer_xvar, outer_yvar, matrix_xvar, matrix_yvar, "removed", False
+
+        ctx = dash.callback_context
+        if len(ctx.triggered) == 1:
+            if len(set([outer_xvar, outer_yvar, matrix_xvar, matrix_yvar])) != 4:
+                return error_response
+            else:
+                return success_response
+        else:
+            return outer_xvar_opts[0]['value'], outer_yvar_opts[1]['value'], \
+                   matrix_xvar_opts[2]['value'], matrix_yvar_opts[3]['value'], "removed", False
 
     # ---- Prev ts
     @callback(
@@ -1409,18 +1472,21 @@ class GeneDriveAIO(html.Div):
     # ---------------------------------------------
     # ---- Elim prob matrices
     @callback(
-        Output('elim-prob-matrices', 'figure'),
+        [Output('elim-prob-matrices', 'figure'),
         Output('elim-prob-matrices', 'className'),
-        Output('display-elim-prob-matrices', 'className'),
-        [State('eir-itn0', 'value'),
+        Output('display-elim-prob-matrices', 'className')],
+        [Input('run-elim-prob-matrices', 'n_clicks'),
+         State('eir-itn0', 'value'),
          State('drive-type0', 'value'),
          State('outer-xvar0', 'value'),
          State('outer-yvar0', 'value'),
          State('matrix-xvar0', 'value'),
-         State('matrix-yvar0', 'value'),
-         Input('run-elim-prob-matrices', 'n_clicks')])
-    def update_elim_prob_matrices(sel_eir_itn, sel_drive_type,
-                                  ov_xvar, ov_yvar, mat_xvar, mat_yvar, n_clicks):
+         State('matrix-yvar0', 'value'),]
+         )
+    def update_elim_prob_matrices(n_clicks,sel_eir_itn, sel_drive_type,
+                                  ov_xvar, ov_yvar, mat_xvar, mat_yvar):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1525,6 +1591,8 @@ class GeneDriveAIO(html.Div):
          Input('run-elim-time-matrices', 'n_clicks')])
     def update_elim_time_matrices(sel_eir_itn, sel_drive_type,
                                   ov_xvar, ov_yvar, mat_xvar, mat_yvar, n_clicks):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1628,15 +1696,18 @@ class GeneDriveAIO(html.Div):
         Output('prev-ts', 'figure'),
         Output('prev-ts', 'className'),
         Output('display-prev-ts', 'className'),
-        [State('eir-itn2', 'value'),
+        [Input('run-prev-ts', 'n_clicks'),
+         State('eir-itn2', 'value'),
          State('drive-type2', 'value'),
          State('outer-xvar2', 'value'),
          State('outer-yvar2', 'value'),
          State('sweep-var2-0', 'value'),
          State('sweep-var2-1', 'value'),
-         Input('run-prev-ts', 'n_clicks')])
-    def update_prev_ts(sel_eir_itn, sel_drive_type,
-                       ov_xvar, ov_yvar, svar0, svar1, n_clicksState):
+         ])
+    def update_prev_ts(n_clicks, sel_eir_itn, sel_drive_type,
+                       ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1682,15 +1753,18 @@ class GeneDriveAIO(html.Div):
         Output('av-ts', 'figure'),
         Output('av-ts', 'className'),
         Output('display-av-ts', 'className'),
-        [State('eir-itn3', 'value'),
+        [Input('run-av-ts', 'n_clicks'),
+         State('eir-itn3', 'value'),
          State('drive-type3', 'value'),
          State('outer-xvar3', 'value'),
          State('outer-yvar3', 'value'),
          State('sweep-var3-0', 'value'),
          State('sweep-var3-1', 'value'),
-         Input('run-av-ts', 'n_clicks')])
-    def update_av_ts(sel_eir_itn, sel_drive_type,
-                     ov_xvar, ov_yvar, svar0, svar1, n_clicks):
+         ])
+    def update_av_ts( n_clicks, sel_eir_itn, sel_drive_type,
+                     ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1736,15 +1810,18 @@ class GeneDriveAIO(html.Div):
         Output('ivf-ts', 'figure'),
         Output('ivf-ts', 'className'),
         Output('display-ivf-ts', 'className'),
-        [State('eir-itn4', 'value'),
+        [Input('run-ivf-ts', 'n_clicks'),
+         State('eir-itn4', 'value'),
          State('drive-type4', 'value'),
          State('outer-xvar4', 'value'),
          State('outer-yvar4', 'value'),
          State('sweep-var4-0', 'value'),
          State('sweep-var4-1', 'value'),
-         Input('run-ivf-ts', 'n_clicks')])
-    def update_ivf_ts(sel_eir_itn, sel_drive_type,
-                      ov_xvar, ov_yvar, svar0, svar1, n_clicks):
+         ])
+    def update_ivf_ts( n_clicks, sel_eir_itn, sel_drive_type,
+                      ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1790,15 +1867,18 @@ class GeneDriveAIO(html.Div):
         Output('ivn-ts', 'figure'),
         Output('ivn-ts', 'className'),
         Output('display-ivn-ts', 'className'),
-        [State('eir-itn5', 'value'),
+        [Input('run-ivn-ts', 'n_clicks'),
+         State('eir-itn5', 'value'),
          State('drive-type5', 'value'),
          State('outer-xvar5', 'value'),
          State('outer-yvar5', 'value'),
          State('sweep-var5-0', 'value'),
          State('sweep-var5-1', 'value'),
-         Input('run-ivn-ts', 'n_clicks')])
-    def update_ivn_ts(sel_eir_itn, sel_drive_type,
-                      ov_xvar, ov_yvar, svar0, svar1, n_clicks):
+         ])
+    def update_ivn_ts( n_clicks, sel_eir_itn, sel_drive_type,
+                      ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1844,15 +1924,18 @@ class GeneDriveAIO(html.Div):
         Output('ef-ts', 'figure'),
         Output('ef-ts', 'className'),
         Output('display-ef-ts', 'className'),
-        [State('eir-itn6', 'value'),
+        [Input('run-ef-ts', 'n_clicks'),
+         State('eir-itn6', 'value'),
          State('drive-type6', 'value'),
          State('outer-xvar6', 'value'),
          State('outer-yvar6', 'value'),
          State('sweep-var6-0', 'value'),
          State('sweep-var6-1', 'value'),
-         Input('run-ef-ts', 'n_clicks')])
-    def update_ef_ts(sel_eir_itn, sel_drive_type,
-                     ov_xvar, ov_yvar, svar0, svar1, n_clicks):
+         ])
+    def update_ef_ts( n_clicks, sel_eir_itn, sel_drive_type,
+                     ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1899,15 +1982,18 @@ class GeneDriveAIO(html.Div):
         Output('wt-ts', 'figure'),
         Output('wt-ts', 'className'),
         Output('display-wt-ts', 'className'),
-        [State('eir-itn7', 'value'),
+        [Input('run-wt-ts', 'n_clicks'),
+         State('eir-itn7', 'value'),
          State('drive-type7', 'value'),
          State('outer-xvar7', 'value'),
          State('outer-yvar7', 'value'),
          State('sweep-var7-0', 'value'),
          State('sweep-var7-1', 'value'),
-         Input('run-wt-ts', 'n_clicks')])
-    def update_wt_ts(sel_eir_itn, sel_drive_type,
-                     ov_xvar, ov_yvar, svar0, svar1, n_clicks):
+         ])
+    def update_wt_ts( n_clicks, sel_eir_itn, sel_drive_type,
+                     ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]
@@ -1954,15 +2040,18 @@ class GeneDriveAIO(html.Div):
         Output('rs-ts', 'figure'),
         Output('rs-ts', 'className'),
         Output('display-rs-ts', 'className'),
-        [State('eir-itn8', 'value'),
+        [Input('run-rs-ts', 'n_clicks'),
+         State('eir-itn8', 'value'),
          State('drive-type8', 'value'),
          State('outer-xvar8', 'value'),
          State('outer-yvar8', 'value'),
          State('sweep-var8-0', 'value'),
          State('sweep-var8-1', 'value'),
-         Input('run-rs-ts', 'n_clicks')])
-    def update_rs_ts(sel_eir_itn, sel_drive_type,
-                     ov_xvar, ov_yvar, svar0, svar1, n_clicks):
+         ])
+    def update_rs_ts(n_clicks, sel_eir_itn, sel_drive_type,
+                     ov_xvar, ov_yvar, svar0, svar1):
+        if n_clicks is None:
+            raise PreventUpdate
         # - Get selected data and sweep var vals
         svvals = sv_vals_by_drive_type[sel_drive_type]
         svdefs = sv_defs_by_drive_type[sel_drive_type]

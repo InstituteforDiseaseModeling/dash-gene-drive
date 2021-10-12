@@ -222,8 +222,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='elim-prob-matrices',
-                                          className="hidden",
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className="removed",
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -328,8 +328,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='elim-time-matrices',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -437,8 +437,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='prev-ts',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -546,8 +546,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='av-ts',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -655,8 +655,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='ivf-ts',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -764,8 +764,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='ivn-ts',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -875,8 +875,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='ef-ts',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -985,8 +985,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='wt-ts',
-                                          className='hidden',
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className='removed',
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ]),
 
@@ -1095,8 +1095,8 @@ class GeneDriveAIO(html.Div):
                             ),
                             html.Div([
                                 dcc.Graph(id='rs-ts',
-                                          className="hidden",
-                                          style={'width': '100%', 'height': '80vh'})
+                                          className="removed",
+                                          style={'width': '100%', 'height': 'calc(100vh - 305px)'})
                             ])
                         ])
 

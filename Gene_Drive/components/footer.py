@@ -5,7 +5,7 @@ import datetime
 current_year = datetime.date.today().year
 
 footer_style = {
-    "position": "sticky",
+    "position": "fixed",
     "bottom": 0,
     "width": "100%",
     "backgroundColor": "#24323c",
@@ -38,7 +38,7 @@ terms_style = {
 }
 footer = html.Footer(style=footer_style, children=[
     dbc.Row(
-        className="m-0",
+        className="m-0 row d-none d-lg-flex",
         children=[
             dbc.Col(
                 html.Img(style=logo_style, className="m-0 p-1", src='../assets/bmgf-logo-white.png')

@@ -1,3 +1,4 @@
+import dash_bootstrap_components as dbc
 from dash import html, dcc, callback, clientside_callback
 from dash.dependencies import Input, Output, State
 import numpy as np
@@ -122,7 +123,7 @@ class GeneDriveAIO(html.Div):
                         label='Elimination probability matrices',
                         children=[
 
-                            html.H2(className="m-1 text-center", children='Elimination probabilities'),
+                            html.H3(className="m-0 text-center", children='Elimination probabilities'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -137,10 +138,9 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(
+                                                                bs_size="sm",
                                                                 id='eir-itn0',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -152,10 +152,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type0',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -172,38 +170,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar0')
                                                         ],
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar0')
                                                         ],
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Matrix x-var:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='matrix-xvar0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Matrix x-var:']),
+                                                            dbc.Select(bs_size="sm",id='matrix-xvar0')
                                                         ],
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Matrix y-var:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='matrix-yvar0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Matrix y-var:']),
+                                                            dbc.Select(bs_size="sm",id='matrix-yvar0')
                                                         ],
                                                     )
                                                 ]
@@ -238,7 +230,7 @@ class GeneDriveAIO(html.Div):
                     dcc.Tab(
                         className="p-1", label='Years to elimination matrices', children=[
 
-                            html.H2(className="m-1 text-center", children='Years to elimination'),
+                            html.H3(className="m-0 text-center", children='Years to elimination'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -253,10 +245,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn1',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -268,9 +258,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type1',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -287,38 +276,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar1')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar1')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Matrix x-var:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='matrix-xvar1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Matrix x-var:']),
+                                                            dbc.Select(bs_size="sm",id='matrix-xvar1')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Matrix y-var:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='matrix-yvar1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Matrix y-var:']),
+                                                            dbc.Select(bs_size="sm",id='matrix-yvar1')
                                                         ]
                                                     ),
                                                 ]
@@ -356,7 +339,7 @@ class GeneDriveAIO(html.Div):
                         id = "prev-ts-tab",
                         children=[
 
-                            html.H2(className="m-1 text-center", children='PfHRP2 prevalence'),
+                            html.H3(className="m-0 text-center", children='PfHRP2 prevalence'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -371,10 +354,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn2',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -386,9 +367,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type2',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -405,38 +385,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar2')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar2')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar2')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar2')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var2-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var2-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var2-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var2-1')
                                                         ]
                                                     ),
                                                 ]
@@ -474,7 +448,7 @@ class GeneDriveAIO(html.Div):
                         label='Adult vectors time series',
                         children=[
 
-                            html.H2(className="m-1 text-center", children='Adult vectors'),
+                            html.H3(className="m-0 text-center", children='Adult vectors'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -489,10 +463,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn3',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -504,9 +476,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type3',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -523,38 +494,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar3')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar3')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar3')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar3')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var3-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var3-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var3-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var3-1')
                                                         ]
                                                     ),
                                                 ]
@@ -592,7 +557,7 @@ class GeneDriveAIO(html.Div):
                         label='Infectious fraction time series',
                         children=[
 
-                            html.H2(className="m-1 text-center", children='Infectious vector fraction'),
+                            html.H3(className="m-0 text-center", children='Infectious vector fraction'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -607,9 +572,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'], style={'font-weight': 'bold',
-                                                                                                 'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn4',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -621,9 +585,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type4',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -640,38 +603,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar4')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar4')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar4')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar4')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var4-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var4-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var4-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var4-1')
                                                         ]
                                                     ),
                                                 ]
@@ -709,7 +666,7 @@ class GeneDriveAIO(html.Div):
                         label='Infectious vectors time series',
                         children=[
 
-                            html.H2(className="m-1 text-center", children='Infectious vectors'),
+                            html.H3(className="m-0 text-center", children='Infectious vectors'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -724,9 +681,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'], style={'font-weight': 'bold',
-                                                                                                 'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn5',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -738,9 +694,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type5',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -757,38 +712,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar5')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar5')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar5')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar5')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var5-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var5-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var5-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var5-1')
                                                         ]
                                                     ),
                                                 ]
@@ -826,7 +775,7 @@ class GeneDriveAIO(html.Div):
                         label='Effector frequency time series',
                         children=[
 
-                            html.H2(className="m-1 text-center",
+                            html.H3(className="m-0 text-center",
                                     children='Effector frequency (or drive+effector in classic drive case)'),
                             html.Div(
                                 className="container-fluid row m-0",
@@ -842,9 +791,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'], style={'font-weight': 'bold',
-                                                                                                 'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn6',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -856,9 +804,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type6',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -876,38 +823,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar6')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar6')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar6')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar6')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var6-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var6-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var6-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var6-1')
                                                         ]
                                                     ),
                                                 ]
@@ -945,7 +886,7 @@ class GeneDriveAIO(html.Div):
                         label='Wild type frequency time series',
                         children=[
 
-                            html.H2(className="m-1 text-center",
+                            html.H3(className="m-0 text-center",
                                     children='Wild type frequency (at effector locus in integral drive case)'),
                             html.Div(
                                 className="container-fluid row m-0",
@@ -961,9 +902,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'], style={'font-weight': 'bold',
-                                                                                                 'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn7',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -975,9 +915,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type7',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -994,38 +933,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar7')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar7')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar7')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar7')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var7-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var7-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var7-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var7-1')
                                                         ]
                                                     ),
                                                 ]
@@ -1063,7 +996,7 @@ class GeneDriveAIO(html.Div):
                         label='Resistance frequency time series',
                         children=[
 
-                            html.H2(className="m-1 text-center",
+                            html.H3(className="m-0 text-center",
                                     children='Resistance frequency (at effector locus in integral drive case)'),
                             html.Div(
                                 className="container-fluid row m-0",
@@ -1079,9 +1012,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['EIR and ITNs:'], style={'font-weight': 'bold',
-                                                                                                 'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['EIR and ITNs:']),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='eir-itn8',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(eirs_itns)],
@@ -1093,9 +1025,8 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col",
                                                         children=[
-                                                            html.Label(['Drive type:'], style={'font-weight': 'bold',
-                                                                                               'text-align': 'center'}),
-                                                            dcc.Dropdown(
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Drive type:'], ),
+                                                            dbc.Select(bs_size="sm",
                                                                 id='drive-type8',
                                                                 options=[{'label': i, 'value': i} for i in
                                                                          list(svs_by_drive_type.keys())],
@@ -1112,38 +1043,32 @@ class GeneDriveAIO(html.Div):
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer x-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-xvar8')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer x-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-xvar8')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['Outer y-var:'], style={'font-weight': 'bold',
-                                                                                                'text-align': 'center'}),
-                                                            dcc.Dropdown(id='outer-yvar8')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['Outer y-var:']),
+                                                            dbc.Select(bs_size="sm",id='outer-yvar8')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['1st plot var (color):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var8-0')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['1st plot var (color):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var8-0')
                                                         ]
                                                     ),
 
                                                     html.Div(
                                                         className="col-3",
                                                         children=[
-                                                            html.Label(['2nd plot var (style):'],
-                                                                       style={'font-weight': 'bold',
-                                                                              'text-align': 'center'}),
-                                                            dcc.Dropdown(id='sweep-var8-1')
+                                                            html.Label( className="m-0 font-weight-bold",  children = ['2nd plot var (style):']),
+                                                            dbc.Select(bs_size="sm",id='sweep-var8-1')
                                                         ]
                                                     ),
                                                 ]

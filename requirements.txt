@@ -4,7 +4,6 @@
 #
 #    pip-compile
 #
---index-url=https://packages.idmod.org/api/pypi/pypi-production/simple
 brotli==1.0.9
     # via flask-compress
 click==8.0.1
@@ -13,31 +12,29 @@ click==8.0.1
     #   pip-tools
 colorama==0.4.4
     # via click
-dash==2.0.0rc2
+dash==2.0.0
     # via
     #   -r requirements.in
     #   dash-bootstrap-components
 dash-bootstrap-components==0.13.0
     # via -r requirements.in
-dash-core-components==2.0.0rc1
+dash-core-components==2.0.0
     # via
     #   -r requirements.in
     #   dash
-dash-html-components==2.0.0rc1
+dash-html-components==2.0.0
     # via
     #   -r requirements.in
     #   dash
 dash-renderer==1.9.1
     # via -r requirements.in
-dash_table==5.0.0rc1
+dash-table==5.0.0
     # via dash
 flask==2.0.1
     # via
     #   dash
     #   flask-compress
 flask-compress==1.10.1
-    # via dash
-future==0.18.2
     # via dash
 gunicorn==20.1.0
     # via -r requirements.in
@@ -79,3 +76,7 @@ werkzeug==2.0.1
     # via flask
 wheel==0.37.0
     # via pip-tools
+
+# The following packages are considered to be unsafe in a requirements file:
+# pip
+# setuptools

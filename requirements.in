@@ -1,11 +1,10 @@
 pip-tools
-dash==2.0.0rc2
+dash==2.0.0
 dash-renderer
 dash-html-components
 dash-core-components
 dash-bootstrap-components
 plotly
 pip-licenses
-#additionial packages
 pandas
 gunicorn

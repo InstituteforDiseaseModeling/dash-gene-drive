@@ -1,7 +1,7 @@
 from dash import html
 
 about = html.Div(
-    className="content",
+    className="content mb-5",
     children=[
         html.H4(className="title titleText", children="Overview"),
         html.P(

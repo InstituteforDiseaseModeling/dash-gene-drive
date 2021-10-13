@@ -17,8 +17,7 @@ class GeneDriveGreetingAIO(html.Div):
                                 dbc.Jumbotron(
                                     className="m-0 p-2",
                                     children=[
-                                        html.H1("Gene Drive", className="display-4"),
-                                        html.H5(
+                                        html.H3(
                                             children="Population replacement gene drives for "
                                                      "malaria elimination in a highly seasonal Sahelian setting"
                                         ),

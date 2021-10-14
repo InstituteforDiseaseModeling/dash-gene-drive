@@ -8,11 +8,11 @@
 # User Installation
 
 ```bash
-pip install Gene_Drive --index-url=https://packages.idmod.org/api/pypi/idm-pypi-staging/
+pip install Gene_Drive --index-url=https://packages.idmod.org/api/pypi/pypi-production/simple
 ```
 
 ## Pre-requisites
-- Python 3.6/3.7 x64
+- Python 3.9 x64
 
 
 # Development Environment Setup

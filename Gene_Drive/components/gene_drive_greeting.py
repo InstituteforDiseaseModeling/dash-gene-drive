@@ -13,11 +13,12 @@ class GeneDriveGreetingAIO(html.Div):
                     [
 
                         dbc.ModalBody(
+                            style={"fontSize": "0.9rem"},
                             children=[
                                 dbc.Jumbotron(
                                     className="m-0 p-2",
                                     children=[
-                                        html.H3(
+                                        html.H4(
                                             children="Population replacement gene drives for "
                                                      "malaria elimination in a highly seasonal Sahelian setting"
                                         ),

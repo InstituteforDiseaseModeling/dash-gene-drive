@@ -131,7 +131,7 @@ class GeneDriveAIO(html.Div):
                         label='Elimination probability matrices',
                         children=[
 
-                            html.H3(className="m-0 text-center", children='Elimination probabilities'),
+                            html.H3(className="m-2 text-center", children='Elimination probabilities'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -256,7 +256,7 @@ class GeneDriveAIO(html.Div):
                     dcc.Tab(
                         className="p-1", label='Years to elimination matrices', children=[
 
-                            html.H3(className="m-0 text-center", children='Years to elimination'),
+                            html.H3(className="m-2 text-center", children='Years to elimination'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -384,7 +384,7 @@ class GeneDriveAIO(html.Div):
                         id="prev-ts-tab",
                         children=[
 
-                            html.H3(className="m-0 text-center", children='Prevalence'),
+                            html.H3(className="m-2 text-center", children='Prevalence'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -499,7 +499,7 @@ class GeneDriveAIO(html.Div):
                         label='Adult vectors time series',
                         children=[
 
-                            html.H3(className="m-0 text-center", children='Adult vectors'),
+                            html.H3(className="m-2 text-center", children='Adult vectors'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -614,7 +614,7 @@ class GeneDriveAIO(html.Div):
                         label='Infectious fraction time series',
                         children=[
 
-                            html.H3(className="m-0 text-center", children='Infectious vector fraction'),
+                            html.H3(className="m-2 text-center", children='Infectious vector fraction'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -729,7 +729,7 @@ class GeneDriveAIO(html.Div):
                         label='Infectious vectors time series',
                         children=[
 
-                            html.H3(className="m-0 text-center", children='Infectious vectors'),
+                            html.H3(className="m-2 text-center", children='Infectious vectors'),
                             html.Div(
                                 className="container-fluid row m-0",
                                 children=[
@@ -844,7 +844,7 @@ class GeneDriveAIO(html.Div):
                         label='Effector frequency time series',
                         children=[
 
-                            html.H3(className="m-0 text-center",
+                            html.H3(className="m-2 text-center",
                                     children='Effector frequency (or drive+effector in classic drive case)'),
                             html.Div(
                                 className="container-fluid row m-0",
@@ -961,7 +961,7 @@ class GeneDriveAIO(html.Div):
                         label='Wild type frequency time series',
                         children=[
 
-                            html.H3(className="m-0 text-center",
+                            html.H3(className="m-2 text-center",
                                     children='Wild type frequency (at effector locus in integral drive case)'),
                             html.Div(
                                 className="container-fluid row m-0",
@@ -1077,7 +1077,7 @@ class GeneDriveAIO(html.Div):
                         label='Resistance frequency time series',
                         children=[
 
-                            html.H3(className="m-0 text-center",
+                            html.H3(className="m-2 text-center",
                                     children='Resistance frequency (at effector locus in integral drive case)'),
                             html.Div(
                                 className="container-fluid row m-0",

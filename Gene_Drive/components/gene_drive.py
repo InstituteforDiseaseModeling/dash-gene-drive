@@ -1805,7 +1805,7 @@ class GeneDriveAIO(html.Div):
                 fig.add_vline(x=distrib_day, line_dash="dot", line_color="forestgreen",
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
-        fig.update_yaxes(range=[-0.05, 0.7])
+        fig.update_yaxes(range=[-0.06, 1.06])
         return fig, 'shown', 'removed'
 
     # ---- Adult vector time series

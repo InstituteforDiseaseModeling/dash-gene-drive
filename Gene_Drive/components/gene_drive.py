@@ -12,12 +12,11 @@ from plotly.subplots import make_subplots
 import plotly.colors as colors
 from .gene_drive_greeting import GeneDriveGreetingAIO
 
-##
-
-greens_full = colors.get_colorscale('greens')
-greens = greens_full[1:]
-for i in range(0, len(greens)):
-    greens[i][0] = i / (len(greens) - 1)
+#--------- Define colorscale for matrices
+greens_r_full = colors.get_colorscale('greens_r')
+greens_r = greens_r_full[:-1]
+for i in range(0, len(greens_r)):
+    greens_r[i][0] = i/(len(greens_r)-1)
 
 # -------- Choose experiment and set up params
 svs_by_drive_type = {
@@ -1589,7 +1588,7 @@ class GeneDriveAIO(html.Div):
                     zmin=0,
                     zmax=1,
                     showscale=True,
-                    colorscale=greens)
+                    colorscale=greens_r)
                 )
 
                 # - Update annotation axes

@@ -1700,7 +1700,7 @@ class GeneDriveAIO(html.Div):
                     zmin=2.5,
                     zmax=num_yrs,
                     showscale=True,
-                    colorscale=greens)
+                    colorscale=greens_r)
                 )
 
                 # - Update annotation axes

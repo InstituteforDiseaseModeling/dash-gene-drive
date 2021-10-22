@@ -1,6 +1,6 @@
 include requirements.txt
 include README.md
-recursive-include Gene_Drive *.txt *.json
+recursive-include Gene_Drive/ *.txt *.json
 recursive-include Gene_Drive/assets *.ico *.png *.css
 recursive-include Gene_Drive/assets/third_party_scripts *.js
 recursive-include Gene_Drive/assets/third_party_styles *.css

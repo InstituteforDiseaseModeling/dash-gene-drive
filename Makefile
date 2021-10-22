@@ -68,4 +68,5 @@ bump-major-dry-run: ## bump the major version(dry run)
 
 # Extra
 licenses: ## Generate LICENSES.txt
-	pip-licenses --output-file LICENSES.txt
+	pip-licenses --format=rst --output-file ./Gene_Drive/LICENSES.txt
+	pip-licenses --format=json --output-file ./Gene_Drive/LICENSES.json

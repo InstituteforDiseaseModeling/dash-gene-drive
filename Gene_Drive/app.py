@@ -3,7 +3,7 @@ from dash import dcc, html
 import os, sys, traceback
 from .components.about import about
 from .components.header import header
-from .components.footer import footer
+from .components.footer import FooterAIO
 from .components.page_not_found import page_not_found
 
 
@@ -28,7 +28,7 @@ def layout(component=None):
         children=[
             header,
             component,
-            footer
+            FooterAIO()
         ])
 
 

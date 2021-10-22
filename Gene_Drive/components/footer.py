@@ -1,5 +1,6 @@
 import dash_bootstrap_components as dbc
-from dash import html
+from dash import html, callback, Input, Output, callback
+from .licenses import licenses_tabs
 import datetime
 
 current_year = datetime.date.today().year
@@ -30,55 +31,108 @@ copy_text_style = {
 terms_style = {
     "margin": "15px",
     "fontSize": 14,
-    "textAlign": "right",
+    "textAlign": "center",
     "color": "#b8860b",
     "overflow": "hidden",
     "whiteSpace": "nowrap",
     "textOverflow": "ellipsis",
 }
-footer = html.Footer(style=footer_style, children=[
-    dbc.Row(
-        className="m-0 row d-none d-lg-flex",
-        children=[
-            dbc.Col(
-                html.Img(style=logo_style, className="m-0 p-1", src='../assets/bmgf-logo-white.png')
-            ),
-            dbc.Col(
-                [
-                    html.Div(style=copy_text_style,
-                             className="m-0",
-                             children=[
-                                 html.Span(f"1999-{current_year} Bill & Melinda Gates Foundation"),
-                                 html.Br(),
-                                 html.Span("All Rights Reserved")
-                             ]
-                             ),
-                ]
-            ),
-            dbc.Col(
-                html.Div(style=terms_style,
-                         className="m-0",
-                         children=[
-                             html.A(style=terms_style,
-                                    children=[
-                                        html.Span(children=["Terms of Use"])
-                                    ],
-                                    href="https://www.gatesfoundation.org/Terms-of-Use"
-                                    ),
-                             html.Br(),
-                             html.A(style=terms_style,
-                                    children=[
-                                        html.Span(children=["Privacy & Cookies Notice"])
-                                    ],
-                                    href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice"
-                                    ),
-                         ]
-                         )
-            ),
-            dbc.Col(
-                html.Img(style=logo_style, className="m-0", src='../assets/idmlogo55.png')
-            )
 
-        ]
-    )
-])
+
+class FooterAIO(html.Div):
+    def __init__(self):
+        super().__init__([
+            html.Footer(
+                style=footer_style,
+                children=[
+                    dbc.Row(
+                        className="m-0 row d-none d-lg-flex",
+                        children=[
+                            dbc.Col(
+                                html.Img(style=logo_style, className="m-0 p-1",
+                                         src='../assets/bmgf-logo-white.png')
+                            ),
+                            dbc.Col(
+                                [
+                                    html.Div(style=copy_text_style,
+                                             className="m-0",
+                                             children=[
+                                                 html.Span(
+                                                     f"1999-{current_year} Bill & Melinda Gates Foundation"),
+                                                 html.Br(),
+                                                 html.Span("All Rights Reserved")
+                                             ]
+                                             ),
+                                ]
+                            ),
+                            dbc.Col(
+                                html.Div(style=terms_style,
+                                         className="m-0",
+                                         children=[
+                                             html.A(style=terms_style,
+                                                    children=[
+                                                        html.Span(children=["Terms of Use"])
+                                                    ],
+                                                    href="https://www.gatesfoundation.org/Terms-of-Use"
+                                                    ),
+                                             html.Br(),
+                                             html.A(style=terms_style,
+                                                    children=[
+                                                        html.Span(children=["Privacy & Cookies Notice"])
+                                                    ],
+                                                    href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice"
+                                                    ),
+                                         ]
+                                         )
+                            ),
+                            dbc.Col(
+                                html.Div(style=terms_style,
+                                         className="m-0",
+                                         children=[
+                                            html.A(
+                                                style="terms-style",
+                                                id="licenses-modal-link",
+                                                children = "Licenses",
+                                                href="javascript:void(0)"
+                                            )
+                                         ]
+                                         )
+                            ),
+                            dbc.Col(
+                                html.Img(style=logo_style, className="m-0", src='../assets/idmlogo55.png')
+                            ),
+                            dbc.Modal(
+                                children=[
+                                    dbc.ModalHeader("Licenses"),
+                                    dbc.ModalBody(
+                                        className="p-0",
+                                        children=[
+                                            licenses_tabs
+                                        ],
+                                        style={
+                                            "maxHeight": "500px",
+                                            "overflowY": "scroll"
+                                        }
+                                    ),
+                                    dbc.ModalFooter(
+                                        children=[
+                                            dbc.Button(
+                                                id="close-licenses-modal",
+                                                children="Close",
+                                                color="primary"
+                                            )
+                                        ]
+                                    )
+                                ],
+                                id="licenses-modal",
+                                is_open=True
+                            )
+
+                        ]
+                    )
+                ])
+        ])
+
+        # @callback(
+        #     Output("licenses-modal")
+        # )

@@ -1,8 +1,9 @@
+import dash
 import dash_bootstrap_components as dbc
-from dash import html, callback, Input, Output, callback
+from dash import html, callback, Input, Output
 from .licenses import licenses_tabs
 import datetime
-
+from dash.exceptions import PreventUpdate
 current_year = datetime.date.today().year
 
 footer_style = {
@@ -89,13 +90,15 @@ class FooterAIO(html.Div):
                                 html.Div(style=terms_style,
                                          className="m-0",
                                          children=[
-                                            html.A(
-                                                style="terms-style",
-                                                id="licenses-modal-link",
-                                                children = "Licenses",
-                                                href="javascript:void(0)"
-                                            )
-                                         ]
+                                             html.A(style=terms_style,
+                                                    children=[
+                                                        html.Span(children=["Licenses"])
+                                                    ],
+                                                    href="#",
+                                                    n_clicks=None,
+                                                    id="licenses-modal-link"
+                                                    ),
+                                            ]
                                          )
                             ),
                             dbc.Col(
@@ -119,13 +122,14 @@ class FooterAIO(html.Div):
                                             dbc.Button(
                                                 id="close-licenses-modal",
                                                 children="Close",
-                                                color="primary"
+                                                color="primary",
+                                                n_clicks=None
                                             )
                                         ]
                                     )
                                 ],
                                 id="licenses-modal",
-                                is_open=True
+                                is_open=False
                             )
 
                         ]
@@ -133,6 +137,15 @@ class FooterAIO(html.Div):
                 ])
         ])
 
-        # @callback(
-        #     Output("licenses-modal")
-        # )
+    @callback(
+            Output("licenses-modal", "is_open"),
+            Input("licenses-modal-link", "n_clicks"),
+            Input("close-licenses-modal", "n_clicks")
+    )
+    def toggle_modal(n_clicks_open,n_clicks_close ):
+            ctx = dash.callback_context
+            if not ctx.triggered:
+                raise PreventUpdate
+            if ctx.triggered[0]["prop_id"] == "close-licenses-modal.n_clicks":
+                return False
+            return True

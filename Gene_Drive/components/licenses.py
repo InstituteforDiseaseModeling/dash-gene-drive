@@ -1,6 +1,5 @@
 import dash_bootstrap_components as dbc
 from dash import html
-import dash_renderjson
 import json
 
 
@@ -35,7 +34,7 @@ for license in library_licenses:
 
 tab1_content = html.P(
                 className="mt-2 p-2",
-                children= our_license
+                children= html.Pre(our_license)
                 )
 
 tab2_content = html.Div(

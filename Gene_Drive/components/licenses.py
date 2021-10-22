@@ -1,12 +1,14 @@
 import dash_bootstrap_components as dbc
 from dash import html
 import json
+import os
 
 
-with open("Gene_Drive/LICENSE.txt", "r") as f:
+
+with open("Gene_Drive/licenses/LICENSE.txt", "r") as f:
     our_license = f.readlines()
 
-with open ("Gene_Drive/LICENSES.json", "r") as f:
+with open ("Gene_Drive/licenses/LICENSES.json", "r") as f:
     library_licenses_file = f.read()
 
 library_licenses = json.loads(library_licenses_file)

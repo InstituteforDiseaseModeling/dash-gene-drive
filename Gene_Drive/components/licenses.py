@@ -3,12 +3,16 @@ from dash import html
 import json
 import os
 
+from pathlib import Path
 
+current_dir =Path(__file__).parent.parent
+our_license_path = current_dir.joinpath( "licenses", "LICENSE.txt")
+library_licenses_path = current_dir.joinpath("licenses","LICENSES.json")
 
-with open("Gene_Drive/licenses/LICENSE.txt", "r") as f:
+with open(our_license_path, "r") as f:
     our_license = f.readlines()
 
-with open ("Gene_Drive/licenses/LICENSES.json", "r") as f:
+with open (library_licenses_path, "r") as f:
     library_licenses_file = f.read()
 
 library_licenses = json.loads(library_licenses_file)

@@ -1560,15 +1560,15 @@ class GeneDriveAIO(html.Div):
         iaxis = 1
         subplots = []
 
-        dfesm = dfe[dfe[mat_xvar].isin(svvals[mat_xvar]) &
-                    dfe[mat_yvar].isin(svvals[mat_yvar])]
+        dfe = dfe[dfe[mat_xvar].isin(svvals[mat_xvar]) &
+                      dfe[mat_yvar].isin(svvals[mat_yvar])]
 
         for ov_yvar_val in ov_yvar_vals:
             for ov_xvar_val in ov_xvar_vals:
 
                 # - Compute heatmap values
                 allvardefsnow = {k: v for k, v in svdefs.items() if k not in [mat_xvar, mat_yvar, ov_xvar, ov_yvar]}
-                dfenow = dfesm
+                dfenow = dfe
                 if len(allvardefsnow) > 0:
                     for k, v in allvardefsnow.items():
                         dfenow = dfenow[dfenow[k] == v]
@@ -1576,9 +1576,9 @@ class GeneDriveAIO(html.Div):
                 dfenow = dfenow[dfenow[ov_xvar] == ov_xvar_val]
                 dfenow = dfenow[dfenow[ov_yvar] == ov_yvar_val]
                 dfenow.drop(columns=[ov_xvar, ov_yvar], inplace=True)
-                dfenownow = (dfenow.groupby([mat_xvar, mat_yvar])[
+                dfenow = (dfenow.groupby([mat_xvar, mat_yvar])[
                                  'True_Prevalence_elim'].sum() / num_seeds).reset_index()
-                matnow = dfenownow.pivot_table(index=[mat_yvar], columns=[mat_xvar], values='True_Prevalence_elim')
+                matnow = dfenow.pivot_table(index=[mat_yvar], columns=[mat_xvar], values='True_Prevalence_elim')
 
                 # - Create annotated heatmap
                 subplots.append(ff.create_annotated_heatmap(
@@ -1666,7 +1666,7 @@ class GeneDriveAIO(html.Div):
         iaxis = 1
         subplots = []
 
-        dfedsm = dfed[dfed[mat_xvar].isin(svvals[mat_xvar]) &
+        dfed = dfed[dfed[mat_xvar].isin(svvals[mat_xvar]) &
                       dfed[mat_yvar].isin(svvals[mat_yvar])]
 
         for ov_yvar_val in ov_yvar_vals:
@@ -1674,7 +1674,7 @@ class GeneDriveAIO(html.Div):
 
                 # - Compute heatmap values
                 svdefsnow = {k: v for k, v in svdefs.items() if k not in [mat_xvar, mat_yvar, ov_xvar, ov_yvar]}
-                dfednow = dfedsm
+                dfednow = dfed
                 if len(svdefsnow) > 0:
                     for k, v in svdefsnow.items():
                         dfednow = dfednow[dfednow[k] == v]
@@ -1685,8 +1685,8 @@ class GeneDriveAIO(html.Div):
                 dfednow.loc[dfednow['True_Prevalence_elim'] == False,
                             'True_Prevalence_elim_day'] = np.nan
                 dfednow.drop(columns=['True_Prevalence_elim'], inplace=True)
-                dfednownow = (dfednow.groupby([mat_xvar, mat_yvar])['True_Prevalence_elim_day'].mean()).reset_index()
-                matnow = dfednownow.pivot_table(index=[mat_yvar], columns=[mat_xvar],
+                dfednow = (dfednow.groupby([mat_xvar, mat_yvar])['True_Prevalence_elim_day'].mean()).reset_index()
+                matnow = dfednow.pivot_table(index=[mat_yvar], columns=[mat_xvar],
                                                 values='True_Prevalence_elim_day', dropna=False)
                 matnow = (matnow / 365).round(1)  # .astype('Int64')
 

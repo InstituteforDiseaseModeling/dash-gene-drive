@@ -49,7 +49,6 @@ class FooterAIO(html.Div):
                     dcc.Location(id="footer-url"),
                     dbc.Row(
                         id="footer-row",
-                        # className="m-0 row d-none d-lg-flex",
                         className="m-0 row d-none",
                         children=[
                             dbc.Col(

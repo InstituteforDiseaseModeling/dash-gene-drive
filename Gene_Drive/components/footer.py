@@ -79,14 +79,16 @@ class FooterAIO(html.Div):
                                                     children=[
                                                         html.Span(children=["Terms of Use"])
                                                     ],
-                                                    href="https://www.gatesfoundation.org/Terms-of-Use"
+                                                    href="https://www.gatesfoundation.org/Terms-of-Use",
+                                                    target="_blank"
                                                     ),
                                              html.Br(),
                                              html.A(style=terms_style,
                                                     children=[
                                                         html.Span(children=["Privacy & Cookies Notice"])
                                                     ],
-                                                    href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice"
+                                                    href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice",
+                                                    target="_blank"
                                                     ),
                                          ]
                                          ),

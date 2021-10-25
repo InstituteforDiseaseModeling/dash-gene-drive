@@ -1,6 +1,6 @@
 import dash
 import dash_bootstrap_components as dbc
-from dash import html, callback, Input, Output
+from dash import html, callback, Input, Output, dcc, clientside_callback
 from .licenses import licenses_tabs
 import datetime
 from dash.exceptions import PreventUpdate
@@ -46,12 +46,17 @@ class FooterAIO(html.Div):
             html.Footer(
                 style=footer_style,
                 children=[
+                    dcc.Location(id="footer-url"),
                     dbc.Row(
-                        className="m-0 row d-none d-lg-flex",
+                        id="footer-row",
+                        # className="m-0 row d-none d-lg-flex",
+                        className="m-0 row d-none",
                         children=[
                             dbc.Col(
                                 html.Img(style=logo_style, className="m-0 p-1",
                                          src='../assets/bmgf-logo-white.png')
+                                ,
+                                xs=2
                             ),
                             dbc.Col(
                                 [
@@ -64,7 +69,8 @@ class FooterAIO(html.Div):
                                                  html.Span("All Rights Reserved")
                                              ]
                                              ),
-                                ]
+                                ],
+                                xs=3
                             ),
                             dbc.Col(
                                 html.Div(style=terms_style,
@@ -84,7 +90,8 @@ class FooterAIO(html.Div):
                                                     href="https://www.gatesfoundation.org/Privacy-and-Cookies-Notice"
                                                     ),
                                          ]
-                                         )
+                                         ),
+                                xs=3
                             ),
                             dbc.Col(
                                 html.Div(style=terms_style,
@@ -99,10 +106,12 @@ class FooterAIO(html.Div):
                                                     id="licenses-modal-link"
                                                     ),
                                             ]
-                                         )
+                                         ),
+                                xs=2
                             ),
                             dbc.Col(
-                                html.Img(style=logo_style, className="m-0", src='../assets/idmlogo55.png')
+                                html.Img(style=logo_style, className="m-0", src='../assets/idmlogo55.png'),
+                                xs=2
                             ),
                             dbc.Modal(
                                 children=[
@@ -149,3 +158,15 @@ class FooterAIO(html.Div):
             if ctx.triggered[0]["prop_id"] == "close-licenses-modal.n_clicks":
                 return False
             return True
+
+    clientside_callback(
+        """
+        function(href){
+            let w = window.innerWidth;
+            console.log(w);
+            return w
+        }
+        """,
+        Output('footer-row', 'className'),
+        Input('footer-url', 'href')
+    )

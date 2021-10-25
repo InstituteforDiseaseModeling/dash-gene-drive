@@ -157,15 +157,3 @@ class FooterAIO(html.Div):
             if ctx.triggered[0]["prop_id"] == "close-licenses-modal.n_clicks":
                 return False
             return True
-
-    clientside_callback(
-        """
-        function(href){
-            let w = window.innerWidth;
-            console.log(w);
-            return w
-        }
-        """,
-        Output('footer-row', 'className'),
-        Input('footer-url', 'href')
-    )

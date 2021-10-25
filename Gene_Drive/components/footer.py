@@ -49,7 +49,7 @@ class FooterAIO(html.Div):
                     dcc.Location(id="footer-url"),
                     dbc.Row(
                         id="footer-row",
-                        className="m-0 row d-none",
+                        className="m-0 row",
                         children=[
                             dbc.Col(
                                 html.Img(style=logo_style, className="m-0 p-1",

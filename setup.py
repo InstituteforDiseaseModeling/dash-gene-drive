@@ -36,7 +36,9 @@ authors = [
 setup(
     author=[author[0] for author in authors],
     author_email=[author[1] for author in authors],
+    license = 'Creative Commons Attribution-ShareAlike 4.0',
     classifiers=[
+        'License :: Creative Commons Attribution-ShareAlike 4.0',
         'Programming Language :: Python :: 3.9'
     ],
     description="Dash Gene Drive User Interface",
@@ -50,5 +52,6 @@ setup(
     python_requires='>=3.9.*',
     test_suite='tests',
     extras_require=extras,
-    version='1.0.14.dev.0'
+    version='1.0.14.dev.0',
+
 )

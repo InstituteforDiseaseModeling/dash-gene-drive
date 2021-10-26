@@ -52,6 +52,6 @@ setup(
     python_requires='>=3.9.*',
     test_suite='tests',
     extras_require=extras,
-    version='1.0.14.dev.0',
+    version='1.0.15.dev.0',
 
 )

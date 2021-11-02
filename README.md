@@ -52,8 +52,15 @@ setup-dev   -   Set up packages in dev mode
 ```
 On Windows, you can use `pymake` instead of `make`
 
-## Container Setup]
+## Container Setup
+### using built in development server
 ```
 docker-compose -f docker-compose.yml build
 docker-compose -f docker-compose.yml up
+```
+
+### using gunicorn
+```
+docker-compose -f docker-compose.staging.yml build
+docker-compose -f docker-compose.staging.yml up
 ```

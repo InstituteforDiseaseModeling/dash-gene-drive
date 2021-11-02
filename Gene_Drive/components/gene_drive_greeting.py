@@ -53,10 +53,10 @@ class GeneDriveGreetingAIO(html.Div):
                                                         html.Li(
                                                             children="The ability of the introduced effector gene to suppress "
                                                                      "malaria transmission in mosquitoes (also known as the "
-                                                                     "phenotypic effectiveness of the drive, rc)"
+                                                                     "transmission-blocking effectiveness of the drive, rc)"
                                                         ),
                                                         html.Li(
-                                                            children="The initial frequency of target site resistant alleles "
+                                                            children="The pre-exsisting frequency of target site resistant alleles "
                                                                      "in the population (rr0 in the classic case, rr20 at the "
                                                                      "effector target site in the integral case)"
                                                         ),

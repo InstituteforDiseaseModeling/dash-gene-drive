@@ -101,21 +101,33 @@ elim_day = 2555  # day on which elim fraction is calculated
 data_dir = os.getenv('DATA_DIR', None)
 
 ##
+#--------- Data load optimizers
+column_types = dict(Time='uint16',
+                    True_Prevalence_elim_day='Int64'
+                    )
+def optimize_dataframe(simdata):
+    for column, item_type in column_types.items():
+        if column in simdata.columns:
+            simdata[column] = simdata[column].astype(item_type)
+    return simdata
 # -------- Load data
 dfis = {}
 dfas = {}
 dfes = {}
 dfeds = {}
+print("starting data load")
+feather_files_updater =[]
 for drive_typenow in fns_by_drive_type_eir_itn.keys():
     for eir_itnnow in fns_by_drive_type_eir_itn[drive_typenow].keys():
+        print("loading data...")
         winame = fns_by_drive_type_eir_itn[drive_typenow][eir_itnnow]
-        dfis[winame] = pd.read_csv(os.path.join(data_dir, 'dfi_' + winame + '.csv'))
-        dfis[winame]['Infectious Vectors Num'] = dfis[winame]['Adult Vectors'] * dfis[winame]['Infectious Vectors']
-        dfas[winame] = pd.read_csv(os.path.join(data_dir, 'dfa_' + winame + '.csv'))
-        dfes[winame] = pd.read_csv(os.path.join(data_dir, 'dfe_' + winame + '.csv'))
-        dfeds[winame] = pd.read_csv(os.path.join(data_dir, 'dfed_' + winame + '.csv'))
+        dfis[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfi_' + winame + '.feather')))
+        dfas[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfa_' + winame + '.feather')))
+        dfes[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfe_' + winame + '.feather')))
+        dfeds[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfed_' + winame + '.feather')))
 
 
+print("data load complete")
 ##
 # -------- Component
 class GeneDriveAIO(html.Div):
@@ -1774,14 +1786,15 @@ class GeneDriveAIO(html.Div):
         dfi = dfis[winame]
 
         # - Subset dataframe
-        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
-                     dfi[svar1].isin(svvals[svar1]) &
-                     dfi[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfi[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfi = dfi[dfi[k] == v]
-            dfi.drop(columns=[k], inplace=True)
+            dfi = dfi.drop(columns=[k], inplace=True)
+        dfi = dfi[[svar0, svar1, ov_xvar, ov_yvar, 'Time', 'True Prevalence']]
+        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
+                  dfi[svar1].isin(svvals[svar1]) &
+                  dfi[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfi[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfi, x='Time', y='True Prevalence',
@@ -1831,14 +1844,15 @@ class GeneDriveAIO(html.Div):
         dfi = dfis[winame]
 
         # - Subset dataframe
-        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
-                     dfi[svar1].isin(svvals[svar1]) &
-                     dfi[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfi[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfi = dfi[dfi[k] == v]
-            dfi.drop(columns=[k], inplace=True)
+            dfi = dfi.drop(columns=[k], inplace=True)
+        dfi = dfi[[svar0, svar1, ov_xvar, ov_yvar, 'Time', 'Adult Vectors']]
+        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
+                  dfi[svar1].isin(svvals[svar1]) &
+                  dfi[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfi[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfi, x='Time', y='Adult Vectors',
@@ -1888,14 +1902,15 @@ class GeneDriveAIO(html.Div):
         dfi = dfis[winame]
 
         # - Subset dataframe
-        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
-                     dfi[svar1].isin(svvals[svar1]) &
-                     dfi[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfi[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfi = dfi[dfi[k] == v]
-            dfi.drop(columns=[k], inplace=True)
+            dfi = dfi.drop(columns=[k], inplace=True)
+        dfi = dfi[[svar0, svar1, ov_xvar, ov_yvar, 'Time', 'Infectious Vectors']]
+        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
+                  dfi[svar1].isin(svvals[svar1]) &
+                  dfi[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfi[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfi, x='Time', y='Infectious Vectors',
@@ -1945,14 +1960,15 @@ class GeneDriveAIO(html.Div):
         dfi = dfis[winame]
 
         # - Subset dataframe
-        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
-                     dfi[svar1].isin(svvals[svar1]) &
-                     dfi[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfi[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfi = dfi[dfi[k] == v]
-            dfi.drop(columns=[k], inplace=True)
+            dfi = dfi.drop(columns=[k], inplace=True)
+        dfi = dfi[[svar0, svar1, ov_xvar, ov_yvar, 'Time', 'Infectious Vectors Num']]
+        dfi = dfi[dfi[svar0].isin(svvals[svar0]) &
+                  dfi[svar1].isin(svvals[svar1]) &
+                  dfi[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfi[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfi, x='Time', y='Infectious Vectors Num',
@@ -2003,14 +2019,15 @@ class GeneDriveAIO(html.Div):
         dfa = dfas[winame]
 
         # - Subset dataframe
-        dfa = dfa[dfa[svar0].isin(svvals[svar0]) &
-                     dfa[svar1].isin(svvals[svar1]) &
-                     dfa[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfa[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfa = dfa[dfa[k] == v]
-            dfa.drop(columns=[k], inplace=True)
+            dfa = dfa.drop(columns=[k], inplace=True)
+        dfa = dfa[[svar0, svar1, ov_xvar, ov_yvar, 'Time', effallele]]
+        dfa = dfa[dfa[svar0].isin(svvals[svar0]) &
+                  dfa[svar1].isin(svvals[svar1]) &
+                  dfa[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfa[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfa, x='Time', y=effallele,
@@ -2061,14 +2078,15 @@ class GeneDriveAIO(html.Div):
         dfa = dfas[winame]
 
         # - Subset dataframe
-        dfa = dfa[dfa[svar0].isin(svvals[svar0]) &
-                     dfa[svar1].isin(svvals[svar1]) &
-                     dfa[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfa[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfa = dfa[dfa[k] == v]
-            dfa.drop(columns=[k], inplace=True)
+            dfa = dfa.drop(columns=[k], inplace=True)
+        dfa = dfa[[svar0, svar1, ov_xvar, ov_yvar, 'Time', wtallele]]
+        dfa = dfa[dfa[svar0].isin(svvals[svar0]) &
+                  dfa[svar1].isin(svvals[svar1]) &
+                  dfa[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfa[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfa, x='Time', y=wtallele,
@@ -2119,14 +2137,15 @@ class GeneDriveAIO(html.Div):
         dfa = dfas[winame]
 
         # - Subset dataframe
-        dfa = dfa[dfa[svar0].isin(svvals[svar0]) &
-                     dfa[svar1].isin(svvals[svar1]) &
-                     dfa[ov_xvar].isin(svvals[ov_xvar]) &
-                     dfa[ov_yvar].isin(svvals[ov_yvar])]
         svdefsnow = {k: v for k, v in svdefs.items() if k not in [svar0, svar1, ov_xvar, ov_yvar]}
         for k, v in svdefsnow.items():
             dfa = dfa[dfa[k] == v]
-            dfa.drop(columns=[k], inplace=True)
+            dfa = dfa.drop(columns=[k], inplace=True)
+        dfa = dfa[[svar0, svar1, ov_xvar, ov_yvar, 'Time', rsallele]]
+        dfa = dfa[dfa[svar0].isin(svvals[svar0]) &
+                  dfa[svar1].isin(svvals[svar1]) &
+                  dfa[ov_xvar].isin(svvals[ov_xvar]) &
+                  dfa[ov_yvar].isin(svvals[ov_yvar])]
 
         # - Plot
         fig = px.line(dfa, x='Time', y=rsallele,

@@ -101,32 +101,25 @@ elim_day = 2555  # day on which elim fraction is calculated
 data_dir = os.getenv('DATA_DIR', None)
 
 ##
-#--------- Data load optimizers
-column_types = dict(Time='uint16',
-                    True_Prevalence_elim_day='Int64'
-                    )
-def optimize_dataframe(simdata):
-    for column, item_type in column_types.items():
-        if column in simdata.columns:
-            simdata[column] = simdata[column].astype(item_type)
-    return simdata
 # -------- Load data
 dfis = {}
 dfas = {}
 dfes = {}
 dfeds = {}
 print("starting data load")
-feather_files_updater =[]
+last_winame = None
 for drive_typenow in fns_by_drive_type_eir_itn.keys():
     for eir_itnnow in fns_by_drive_type_eir_itn[drive_typenow].keys():
-        print("loading data...")
         winame = fns_by_drive_type_eir_itn[drive_typenow][eir_itnnow]
-        dfis[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfi_' + winame + '.feather')))
-        dfas[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfa_' + winame + '.feather')))
-        dfes[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfe_' + winame + '.feather')))
-        dfeds[winame] = optimize_dataframe(pd.read_feather(os.path.join(data_dir, 'dfed_' + winame + '.feather')))
-
-
+        print("loading data...")
+        dfis[winame] = pd.read_feather(os.path.join(data_dir, 'dfi_' + winame + '.feather'))
+        dfas[winame] = pd.read_feather(os.path.join(data_dir, 'dfa_' + winame + '.feather'))
+        dfes[winame] = pd.read_feather(os.path.join(data_dir, 'dfe_' + winame + '.feather'))
+        dfeds[winame] = pd.read_feather(os.path.join(data_dir, 'dfed_' + winame + '.feather'))
+        last_winame = winame
+    for column in sv_vals_by_drive_type[drive_typenow].keys():
+        sv_vals_by_drive_type[drive_typenow][column] = np.asarray(sv_vals_by_drive_type[drive_typenow][column],
+                                                                  dtype=dfes[last_winame].dtypes[column])
 print("data load complete")
 ##
 # -------- Component
@@ -1796,6 +1789,8 @@ class GeneDriveAIO(html.Div):
                   dfi[ov_xvar].isin(svvals[ov_xvar]) &
                   dfi[ov_yvar].isin(svvals[ov_yvar])]
 
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfi[var] = dfi[var].astype(float).round(3)
         # - Plot
         fig = px.line(dfi, x='Time', y='True Prevalence',
                       labels={
@@ -1853,6 +1848,9 @@ class GeneDriveAIO(html.Div):
                   dfi[svar1].isin(svvals[svar1]) &
                   dfi[ov_xvar].isin(svvals[ov_xvar]) &
                   dfi[ov_yvar].isin(svvals[ov_yvar])]
+
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfi[var] = dfi[var].astype(float).round(3)
 
         # - Plot
         fig = px.line(dfi, x='Time', y='Adult Vectors',
@@ -1912,6 +1910,8 @@ class GeneDriveAIO(html.Div):
                   dfi[ov_xvar].isin(svvals[ov_xvar]) &
                   dfi[ov_yvar].isin(svvals[ov_yvar])]
 
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfi[var] = dfi[var].astype(float).round(3)
         # - Plot
         fig = px.line(dfi, x='Time', y='Infectious Vectors',
                       labels={
@@ -1970,6 +1970,8 @@ class GeneDriveAIO(html.Div):
                   dfi[ov_xvar].isin(svvals[ov_xvar]) &
                   dfi[ov_yvar].isin(svvals[ov_yvar])]
 
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfi[var] = dfi[var].astype(float).round(3)
         # - Plot
         fig = px.line(dfi, x='Time', y='Infectious Vectors Num',
                       labels={
@@ -2028,7 +2030,8 @@ class GeneDriveAIO(html.Div):
                   dfa[svar1].isin(svvals[svar1]) &
                   dfa[ov_xvar].isin(svvals[ov_xvar]) &
                   dfa[ov_yvar].isin(svvals[ov_yvar])]
-
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfa[var] = dfa[var].astype(float).round(3)
         # - Plot
         fig = px.line(dfa, x='Time', y=effallele,
                       labels={
@@ -2088,6 +2091,8 @@ class GeneDriveAIO(html.Div):
                   dfa[ov_xvar].isin(svvals[ov_xvar]) &
                   dfa[ov_yvar].isin(svvals[ov_yvar])]
 
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfa[var] = dfa[var].astype(float).round(3)
         # - Plot
         fig = px.line(dfa, x='Time', y=wtallele,
                       labels={
@@ -2146,7 +2151,8 @@ class GeneDriveAIO(html.Div):
                   dfa[svar1].isin(svvals[svar1]) &
                   dfa[ov_xvar].isin(svvals[ov_xvar]) &
                   dfa[ov_yvar].isin(svvals[ov_yvar])]
-
+        for var in [svar0, svar1, ov_xvar, ov_yvar]:
+            dfa[var] = dfa[var].astype(float).round(3)
         # - Plot
         fig = px.line(dfa, x='Time', y=rsallele,
                       labels={

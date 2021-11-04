@@ -27,7 +27,7 @@
   {
     "License": "Creative Commons Attribution-ShareAlike 4.0",
     "Name": "Gene-Drive",
-    "Version": "1.0.14.dev0"
+    "Version": "1.0.15.dev0"
   },
   {
     "License": "BSD License",
@@ -47,7 +47,7 @@
   {
     "License": "MIT License",
     "Name": "PyJWT",
-    "Version": "2.2.0"
+    "Version": "2.3.0"
   },
   {
     "License": "Apache License 2.0",
@@ -75,11 +75,6 @@
     "Version": "0.7.12"
   },
   {
-    "License": "Apache Software License",
-    "Name": "arrow",
-    "Version": "1.1.1"
-  },
-  {
     "License": "MIT License",
     "Name": "atomicwrites",
     "Version": "1.4.0"
@@ -90,14 +85,14 @@
     "Version": "21.2.0"
   },
   {
-    "License": "BSD License",
-    "Name": "binaryornot",
-    "Version": "0.4.4"
-  },
-  {
     "License": "MIT License",
     "Name": "bump2version",
     "Version": "1.0.1"
+  },
+  {
+    "License": "MIT License",
+    "Name": "bumpversion",
+    "Version": "0.6.0"
   },
   {
     "License": "BSD License",
@@ -107,22 +102,17 @@
   {
     "License": "Mozilla Public License 2.0 (MPL 2.0)",
     "Name": "certifi",
-    "Version": "2021.5.30"
+    "Version": "2021.10.8"
   },
   {
     "License": "MIT License",
     "Name": "cffi",
-    "Version": "1.14.6"
-  },
-  {
-    "License": "GNU Library or Lesser General Public License (LGPL)",
-    "Name": "chardet",
-    "Version": "4.0.0"
+    "Version": "1.15.0"
   },
   {
     "License": "MIT License",
     "Name": "charset-normalizer",
-    "Version": "2.0.4"
+    "Version": "2.0.7"
   },
   {
     "License": "BSD License",
@@ -135,14 +125,9 @@
     "Version": "0.4.4"
   },
   {
-    "License": "BSD License",
-    "Name": "cookiecutter",
-    "Version": "1.7.3"
-  },
-  {
     "License": "Apache Software License",
     "Name": "coverage",
-    "Version": "6.0.1"
+    "Version": "6.1.1"
   },
   {
     "License": "MIT License",
@@ -175,16 +160,6 @@
     "Version": "5.0.0"
   },
   {
-    "License": "BSD License",
-    "Name": "dill",
-    "Version": "0.3.4"
-  },
-  {
-    "License": "Apache Software License",
-    "Name": "diskcache",
-    "Version": "5.2.1"
-  },
-  {
     "License": "MIT License",
     "Name": "docopt",
     "Version": "0.6.2"
@@ -212,7 +187,7 @@
   {
     "License": "BSD License",
     "Name": "idna",
-    "Version": "3.2"
+    "Version": "3.3"
   },
   {
     "License": "MIT License",
@@ -230,11 +205,6 @@
     "Version": "2.0.1"
   },
   {
-    "License": "MIT License",
-    "Name": "jinja2-time",
-    "Version": "0.2.0"
-  },
-  {
     "License": "Apache Software License",
     "Name": "junitparser",
     "Version": "1.6.3"
@@ -246,28 +216,18 @@
   },
   {
     "License": "BSD License",
-    "Name": "multiprocess",
-    "Version": "0.70.12.2"
-  },
-  {
-    "License": "BSD License",
     "Name": "numpy",
-    "Version": "1.21.2"
+    "Version": "1.21.3"
   },
   {
     "License": "Apache Software License; BSD License",
     "Name": "packaging",
-    "Version": "21.0"
+    "Version": "21.2"
   },
   {
     "License": "BSD License",
     "Name": "pandas",
-    "Version": "1.3.3"
-  },
-  {
-    "License": "MIT License",
-    "Name": "pep517",
-    "Version": "0.11.0"
+    "Version": "1.3.4"
   },
   {
     "License": "Apache Software License",
@@ -291,16 +251,6 @@
   },
   {
     "License": "MIT License",
-    "Name": "poyo",
-    "Version": "0.5.0"
-  },
-  {
-    "License": "BSD License",
-    "Name": "psutil",
-    "Version": "5.8.0"
-  },
-  {
-    "License": "MIT License",
     "Name": "py",
     "Version": "1.10.0"
   },
@@ -308,6 +258,11 @@
     "License": "Mozilla Public License 2.0 (MPL 2.0)",
     "Name": "py-make",
     "Version": "0.1.1"
+  },
+  {
+    "License": "Apache Software License",
+    "Name": "pyarrow",
+    "Version": "6.0.0"
   },
   {
     "License": "BSD License",
@@ -373,11 +328,6 @@
     "License": "Apache Software License; BSD License",
     "Name": "python-dateutil",
     "Version": "2.8.2"
-  },
-  {
-    "License": "MIT License",
-    "Name": "python-slugify",
-    "Version": "5.0.2"
   },
   {
     "License": "MIT License",
@@ -460,19 +410,9 @@
     "Version": "8.0.1"
   },
   {
-    "License": "Artistic License; GNU General Public License (GPL); GNU General Public License v2 or later (GPLv2+)",
-    "Name": "text-unidecode",
-    "Version": "1.3"
-  },
-  {
     "License": "MIT License",
     "Name": "toml",
     "Version": "0.10.2"
-  },
-  {
-    "License": "MIT License",
-    "Name": "tomli",
-    "Version": "1.2.1"
   },
   {
     "License": "Apache Software License",
@@ -482,11 +422,11 @@
   {
     "License": "MIT License",
     "Name": "urllib3",
-    "Version": "1.26.6"
+    "Version": "1.26.7"
   },
   {
     "License": "BSD License",
     "Name": "wrapt",
-    "Version": "1.13.1"
+    "Version": "1.13.3"
   }
 ]

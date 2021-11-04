@@ -18,22 +18,23 @@ with open (library_licenses_path, "r") as f:
 library_licenses = json.loads(library_licenses_file)
 library_licenses_content = []
 for license in library_licenses:
-    ul = html.Ul(
-        children=[
-            html.Li(
-                children=[
-                    html.Span(license["Name"]),
-                    html.Ul(
-                        [
-                            html.Li(license["License"]),
-                            html.Li(license["Version"])
-                        ]
-                    )
-                ]
-            )
-        ]
-    )
-    library_licenses_content.append(ul)
+    if license["Name"].lower() not in ["gene-drive","gene_drive"]:
+        ul = html.Ul(
+            children=[
+                html.Li(
+                    children=[
+                        html.Span(license["Name"]),
+                        html.Ul(
+                            [
+                                html.Li(license["License"]),
+                                html.Li(license["Version"])
+                            ]
+                        )
+                    ]
+                )
+            ]
+        )
+        library_licenses_content.append(ul)
 
 
 tab1_content = html.P(

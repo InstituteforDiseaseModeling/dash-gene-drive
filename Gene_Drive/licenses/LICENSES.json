@@ -20,6 +20,11 @@
     "Version": "2.0.2"
   },
   {
+    "License": "BSD License",
+    "Name": "Flask-Caching",
+    "Version": "1.10.1"
+  },
+  {
     "License": "MIT License",
     "Name": "Flask-Compress",
     "Version": "1.10.1"
@@ -27,7 +32,7 @@
   {
     "License": "Creative Commons Attribution-ShareAlike 4.0",
     "Name": "Gene-Drive",
-    "Version": "1.0.15.dev0"
+    "Version": "2.0.0.dev0"
   },
   {
     "License": "BSD License",

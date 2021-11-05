@@ -100,7 +100,6 @@ num_yrs = 8  # length of sim
 num_seeds = 20  # num of seeds per sim
 elim_day = 2555  # day on which elim fraction is calculated
 
-data_dir = os.getenv('DATA_DIR', None)
 
 ##
 # -------- Load data
@@ -127,10 +126,12 @@ for drive_typenow in fns_by_drive_type_eir_itn.keys():
             dfeds[winame] = pd.read_feather(az_fileshare_url+dfed_filename+az_sas_token)
         else:
             print("loading data from disk...")
-            dfis[winame] = pd.read_feather(os.path.join(data_dir, dfi_filename))
-            dfas[winame] = pd.read_feather(os.path.join(data_dir, dfa_filename))
-            dfes[winame] = pd.read_feather(os.path.join(data_dir, dfe_filename))
-            dfeds[winame] = pd.read_feather(os.path.join(data_dir, dfed_filename))
+            data_dir = os.getenv('DATA_DIR', None)
+            if data_dir and os.path.exists(data_dir) and len(os.listdir(data_dir)) != 0:
+                dfis[winame] = pd.read_feather(os.path.join(data_dir, dfi_filename))
+                dfas[winame] = pd.read_feather(os.path.join(data_dir, dfa_filename))
+                dfes[winame] = pd.read_feather(os.path.join(data_dir, dfe_filename))
+                dfeds[winame] = pd.read_feather(os.path.join(data_dir, dfed_filename))
 
         last_winame = winame
     for column in sv_vals_by_drive_type[drive_typenow].keys():

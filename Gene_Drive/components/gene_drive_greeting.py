@@ -3,7 +3,7 @@ import flask
 from dash import html, dcc, callback
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-
+from .citation import href
 
 class GeneDriveGreetingAIO(html.Div):
     def __init__(self):
@@ -73,12 +73,12 @@ class GeneDriveGreetingAIO(html.Div):
                                         html.P(
                                             children=[
                                                 html.Span(
-                                                    children="The paper associated with these visualizations and results can be found here: "
+                                                    children="The paper associated with these visualizations and results can be found "
                                                 ),
                                                 html.A(
-                                                    href="",
+                                                    href=href,
                                                     target="_blank",
-                                                    children="<CITATION>. "
+                                                    children="here. "
                                                 ),
                                                 html.Span(
                                                     children="Any questions can be sen to "

@@ -100,7 +100,6 @@ num_yrs = 8  # length of sim
 num_seeds = 20  # num of seeds per sim
 elim_day = 2555  # day on which elim fraction is calculated
 
-data_dir = os.getenv('DATA_DIR', None)
 
 ##
 # -------- Load data
@@ -113,11 +112,27 @@ last_winame = None
 for drive_typenow in fns_by_drive_type_eir_itn.keys():
     for eir_itnnow in fns_by_drive_type_eir_itn[drive_typenow].keys():
         winame = fns_by_drive_type_eir_itn[drive_typenow][eir_itnnow]
-        print("loading data...")
-        dfis[winame] = pd.read_feather(os.path.join(data_dir, 'dfi_' + winame + '.feather'))
-        dfas[winame] = pd.read_feather(os.path.join(data_dir, 'dfa_' + winame + '.feather'))
-        dfes[winame] = pd.read_feather(os.path.join(data_dir, 'dfe_' + winame + '.feather'))
-        dfeds[winame] = pd.read_feather(os.path.join(data_dir, 'dfed_' + winame + '.feather'))
+        dfi_filename = 'dfi_'+winame+'.feather'
+        dfa_filename = 'dfa_'+winame+'.feather'
+        dfe_filename = 'dfe_'+winame+'.feather'
+        dfed_filename = 'dfed_'+winame+'.feather'
+        if os.getenv('ENVIRONMENT').lower() == 'deployment':
+            az_fileshare_url=os.getenv('AZ_FILESHARE_URL')
+            az_sas_token= os.getenv('AZ_SAS_TOKEN')
+            print("loading data from azure storage...")
+            dfis[winame] = pd.read_feather(az_fileshare_url+dfi_filename+az_sas_token)
+            dfas[winame] = pd.read_feather(az_fileshare_url+dfa_filename+az_sas_token)
+            dfes[winame] = pd.read_feather(az_fileshare_url+dfe_filename+az_sas_token)
+            dfeds[winame] = pd.read_feather(az_fileshare_url+dfed_filename+az_sas_token)
+        else:
+            print("loading data from disk...")
+            data_dir = os.getenv('DATA_DIR', None)
+            if data_dir and os.path.exists(data_dir) and len(os.listdir(data_dir)) != 0:
+                dfis[winame] = pd.read_feather(os.path.join(data_dir, dfi_filename))
+                dfas[winame] = pd.read_feather(os.path.join(data_dir, dfa_filename))
+                dfes[winame] = pd.read_feather(os.path.join(data_dir, dfe_filename))
+                dfeds[winame] = pd.read_feather(os.path.join(data_dir, dfed_filename))
+
         last_winame = winame
     for column in sv_vals_by_drive_type[drive_typenow].keys():
         sv_vals_by_drive_type[drive_typenow][column] = np.asarray(sv_vals_by_drive_type[drive_typenow][column],

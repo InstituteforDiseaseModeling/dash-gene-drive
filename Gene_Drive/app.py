@@ -50,13 +50,9 @@ data_not_found = html.Div(
                           ])
 # define the home_page
 try:
-    data_dir = os.getenv('DATA_DIR', None)
-    if data_dir and os.path.exists(data_dir) and len(os.listdir(data_dir)) != 0:
-        from .components.gene_drive import GeneDriveAIO
+    from .components.gene_drive import GeneDriveAIO
+    gene_drive_component = GeneDriveAIO()
 
-        gene_drive_component = GeneDriveAIO()
-    else:
-        gene_drive_component = data_not_found
 except Exception:
     print("-" * 60)
     traceback.print_exc(file=sys.stdout)

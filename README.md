@@ -33,8 +33,9 @@ When setting up your environment for the first time, you can use the following i
    `python -m venv dash-gene-drive`
    On Unix(Mac/Linux) you can use venv or virtualenv
 4) Activate the virtualenv
-5) Add the data directory to the environment variables
+5) Set environment variables
    `DATA_DIR = path/to/dash-gene-drive-data`
+   `ENVIRONMENT = development`
 6) If you are on windows, run `pip install py-make --upgrade --force-reinstall`
 7) Then run `python ./.dev_scripts/bootstrap.py`. This will install all the tools. 
 8) Run the app 

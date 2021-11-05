@@ -5,9 +5,9 @@ import os
 
 from pathlib import Path
 
-current_dir =Path(__file__).parent.parent
-our_license_path = current_dir.joinpath( "licenses", "LICENSE.txt")
-library_licenses_path = current_dir.joinpath("licenses","LICENSES.json")
+parent_dir =Path(__file__).parent.parent
+our_license_path = parent_dir.joinpath( "licenses", "LICENSE.txt")
+library_licenses_path = parent_dir.joinpath("licenses","LICENSES.json")
 
 with open(our_license_path, "r") as f:
     our_license = f.readlines()

@@ -5,6 +5,9 @@ from .components.about import about
 from .components.header import header
 from .components.footer import FooterAIO
 from .components.page_not_found import page_not_found
+from flask_caching import Cache
+from pathlib import Path
+
 
 
 external_stylesheets = ['./assets/third_party_styles/bootstrap.min.css']
@@ -17,9 +20,14 @@ app = dash.Dash(__name__,
                 external_stylesheets=external_stylesheets,
                 external_scripts=external_scripts,
                 suppress_callback_exceptions=True)
-
 server = app.server
-
+# create cache
+parent_dir = Path(__file__).parent
+cache_dir = parent_dir.joinpath('cache')
+cache = Cache(server, config={
+    'CACHE_TYPE': 'filesystem',
+    'CACHE_DIR': cache_dir
+})
 
 # A function to wrap a component with header and footer
 def layout(component=None):
@@ -54,7 +62,7 @@ except Exception:
     traceback.print_exc(file=sys.stdout)
     print("-" * 60)
     gene_drive_component = data_not_found
-
+    
 home_page = layout(gene_drive_component)
 
 # define the about_page

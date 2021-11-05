@@ -11,6 +11,8 @@ import plotly.figure_factory as ff
 from plotly.subplots import make_subplots
 import plotly.colors as colors
 from .gene_drive_greeting import GeneDriveGreetingAIO
+from Gene_Drive.app import cache
+
 
 #--------- Define colorscale for matrices
 greens_r_full = colors.get_colorscale('greens_r')
@@ -1538,7 +1540,8 @@ class GeneDriveAIO(html.Div):
     @callback(
         [Output('elim-prob-matrices', 'figure'),
          Output('elim-prob-matrices', 'className'),
-         Output('display-elim-prob-matrices', 'className')],
+         Output('display-elim-prob-matrices', 'className'),
+         Output('run-elim-prob-matrices', 'n_clicks')],
         [Input('run-elim-prob-matrices', 'n_clicks'),
          State('eir-itn0', 'value'),
          State('drive-type0', 'value'),
@@ -1547,6 +1550,7 @@ class GeneDriveAIO(html.Div):
          State('matrix-xvar0', 'value'),
          State('matrix-yvar0', 'value'), ]
     )
+    @cache.memoize()
     def update_elim_prob_matrices(n_clicks, sel_eir_itn, sel_drive_type,
                                   ov_xvar, ov_yvar, mat_xvar, mat_yvar):
         if n_clicks is None:
@@ -1639,13 +1643,14 @@ class GeneDriveAIO(html.Div):
         )
         fig.update_layout(margin=dict(l=60, r=50, b=50, t=30))
 
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed' , None
 
     # ---- Elim time matrices
     @callback(
         Output('elim-time-matrices', 'figure'),
         Output('elim-time-matrices', 'className'),
         Output('display-elim-time-matrices', 'className'),
+        Output('run-elim-time-matrices', 'n_clicks'),
         [State('eir-itn1', 'value'),
          State('drive-type1', 'value'),
          State('outer-xvar1', 'value'),
@@ -1653,6 +1658,7 @@ class GeneDriveAIO(html.Div):
          State('matrix-xvar1', 'value'),
          State('matrix-yvar1', 'value'),
          Input('run-elim-time-matrices', 'n_clicks')])
+    @cache.memoize()
     def update_elim_time_matrices(sel_eir_itn, sel_drive_type,
                                   ov_xvar, ov_yvar, mat_xvar, mat_yvar, n_clicks):
         if n_clicks is None:
@@ -1753,13 +1759,14 @@ class GeneDriveAIO(html.Div):
         )
         fig.update_layout(margin=dict(l=60, r=50, b=50, t=30))
 
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Prevalence time series
     @callback(
         Output('prev-ts', 'figure'),
         Output('prev-ts', 'className'),
         Output('display-prev-ts', 'className'),
+        Output('run-prev-ts', 'n_clicks'),
         [Input('run-prev-ts', 'n_clicks'),
          State('eir-itn2', 'value'),
          State('drive-type2', 'value'),
@@ -1768,6 +1775,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var2-0', 'value'),
          State('sweep-var2-1', 'value'),
          ])
+    @cache.memoize()
     def update_prev_ts(n_clicks, sel_eir_itn, sel_drive_type,
                        ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -1813,13 +1821,14 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-0.06, 1.06])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Adult vector time series
     @callback(
         Output('av-ts', 'figure'),
         Output('av-ts', 'className'),
         Output('display-av-ts', 'className'),
+        Output('run-av-ts', 'n_clicks'),
         [Input('run-av-ts', 'n_clicks'),
          State('eir-itn3', 'value'),
          State('drive-type3', 'value'),
@@ -1828,6 +1837,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var3-0', 'value'),
          State('sweep-var3-1', 'value'),
          ])
+    @cache.memoize()
     def update_av_ts(n_clicks, sel_eir_itn, sel_drive_type,
                      ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -1874,13 +1884,14 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-50, 8500])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Infectious vector fraction time series
     @callback(
         Output('ivf-ts', 'figure'),
         Output('ivf-ts', 'className'),
         Output('display-ivf-ts', 'className'),
+        Output('run-ivf-ts', 'n_clics'),
         [Input('run-ivf-ts', 'n_clicks'),
          State('eir-itn4', 'value'),
          State('drive-type4', 'value'),
@@ -1889,6 +1900,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var4-0', 'value'),
          State('sweep-var4-1', 'value'),
          ])
+    @cache.memoize()
     def update_ivf_ts(n_clicks, sel_eir_itn, sel_drive_type,
                       ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -1934,13 +1946,14 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-0.01, 0.12])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Infectious vector numbers time series
     @callback(
         Output('ivn-ts', 'figure'),
         Output('ivn-ts', 'className'),
         Output('display-ivn-ts', 'className'),
+        Output('run-ivn-ts', 'n_clicks'),
         [Input('run-ivn-ts', 'n_clicks'),
          State('eir-itn5', 'value'),
          State('drive-type5', 'value'),
@@ -1949,6 +1962,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var5-0', 'value'),
          State('sweep-var5-1', 'value'),
          ])
+    @cache.memoize()
     def update_ivn_ts(n_clicks, sel_eir_itn, sel_drive_type,
                       ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -1994,13 +2008,14 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-5, 165])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Effector freq time series
     @callback(
         Output('ef-ts', 'figure'),
         Output('ef-ts', 'className'),
         Output('display-ef-ts', 'className'),
+        Output('run-ef-ts', 'n_clicks'),
         [Input('run-ef-ts', 'n_clicks'),
          State('eir-itn6', 'value'),
          State('drive-type6', 'value'),
@@ -2009,6 +2024,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var6-0', 'value'),
          State('sweep-var6-1', 'value'),
          ])
+    @cache.memoize()
     def update_ef_ts(n_clicks, sel_eir_itn, sel_drive_type,
                      ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -2054,13 +2070,14 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-0.06, 1.06])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Wild type freq time series
     @callback(
         Output('wt-ts', 'figure'),
         Output('wt-ts', 'className'),
         Output('display-wt-ts', 'className'),
+        Output('run-wt-ts', 'n_clicks'),
         [Input('run-wt-ts', 'n_clicks'),
          State('eir-itn7', 'value'),
          State('drive-type7', 'value'),
@@ -2069,6 +2086,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var7-0', 'value'),
          State('sweep-var7-1', 'value'),
          ])
+    @cache.memoize()
     def update_wt_ts(n_clicks, sel_eir_itn, sel_drive_type,
                      ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -2115,13 +2133,14 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-0.06, 1.06])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None
 
     # ---- Resistance freq time series
     @callback(
         Output('rs-ts', 'figure'),
         Output('rs-ts', 'className'),
         Output('display-rs-ts', 'className'),
+        Output('run-rs-ts', 'n_clicks'),
         [Input('run-rs-ts', 'n_clicks'),
          State('eir-itn8', 'value'),
          State('drive-type8', 'value'),
@@ -2130,6 +2149,7 @@ class GeneDriveAIO(html.Div):
          State('sweep-var8-0', 'value'),
          State('sweep-var8-1', 'value'),
          ])
+    @cache.memoize()
     def update_rs_ts(n_clicks, sel_eir_itn, sel_drive_type,
                      ov_xvar, ov_yvar, svar0, svar1):
         if n_clicks is None:
@@ -2175,4 +2195,4 @@ class GeneDriveAIO(html.Div):
                               row="all", col="all")
         fig.update_xaxes(range=[0, num_yrs * 365])
         fig.update_yaxes(range=[-0.06, 1.06])
-        return fig, 'shown', 'removed'
+        return fig, 'shown', 'removed', None

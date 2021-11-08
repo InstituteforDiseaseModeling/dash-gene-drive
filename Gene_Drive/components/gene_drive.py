@@ -15,6 +15,11 @@ from Gene_Drive.app import cache
 
 
 #--------- Define colorscale for matrices
+greens_full = colors.get_colorscale('greens')
+greens = greens_full[1:]
+for i in range(0, len(greens)):
+    greens[i][0] = i / (len(greens) - 1)
+
 greens_r_full = colors.get_colorscale('greens_r')
 greens_r = greens_r_full[:-1]
 for i in range(0, len(greens_r)):
@@ -1612,7 +1617,7 @@ class GeneDriveAIO(html.Div):
                     zmin=0,
                     zmax=1,
                     showscale=True,
-                    colorscale=greens_r)
+                    colorscale=greens)
                 )
 
                 # - Update annotation axes

@@ -39,7 +39,7 @@ about = html.Div(
                                      "transmission-blocking effectiveness of the drive, rc)"
                         ),
                         html.Li(
-                            children="The pre-exsisting frequency of target site resistant alleles "
+                            children="The pre-existing frequency of target site resistant alleles "
                                      "in the population (rr0 in the classic case, rr20 at the "
                                      "effector target site in the integral case)"
                         ),
@@ -64,7 +64,7 @@ about = html.Div(
                     children="here. "
                 ),
                 html.Span(
-                    children="Any questions can be sen to "
+                    children="Any questions can be sent to "
                 ),
                 html.A(
                     href="mailto:support@idmod.org",

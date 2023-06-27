@@ -4,7 +4,6 @@ from dash import html, dcc, callback, clientside_callback
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import numpy as np
-import os
 import pandas as pd
 import plotly.express as px
 import plotly.figure_factory as ff
@@ -12,6 +11,22 @@ from plotly.subplots import make_subplots
 import plotly.colors as colors
 from .gene_drive_greeting import GeneDriveGreetingAIO
 from Gene_Drive.app import cache
+import logging, traceback, os
+
+# Create a logger
+logger = logging.getLogger("gene_drive_log")
+logger.setLevel(logging.DEBUG)
+
+# Create a console handler and set its level
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.DEBUG)
+
+# Create a formatter and add it to the console handler
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+console_handler.setFormatter(formatter)
+
+# Add the console handler to the logger
+logger.addHandler(console_handler)
 
 
 #--------- Define colorscale for matrices
@@ -112,37 +127,39 @@ dfis = {}
 dfas = {}
 dfes = {}
 dfeds = {}
-print("starting data load")
+logger.info("starting data load")
 last_winame = None
-for drive_typenow in fns_by_drive_type_eir_itn.keys():
-    for eir_itnnow in fns_by_drive_type_eir_itn[drive_typenow].keys():
-        winame = fns_by_drive_type_eir_itn[drive_typenow][eir_itnnow]
-        dfi_filename = 'dfi_'+winame+'.feather'
-        dfa_filename = 'dfa_'+winame+'.feather'
-        dfe_filename = 'dfe_'+winame+'.feather'
-        dfed_filename = 'dfed_'+winame+'.feather'
-        if os.getenv('ENVIRONMENT').lower() == 'deployment':
-            az_fileshare_url=os.getenv('AZ_FILESHARE_URL')
-            az_sas_token= os.getenv('AZ_SAS_TOKEN')
-            print("loading data from azure storage...")
-            dfis[winame] = pd.read_feather(az_fileshare_url+dfi_filename+az_sas_token)
-            dfas[winame] = pd.read_feather(az_fileshare_url+dfa_filename+az_sas_token)
-            dfes[winame] = pd.read_feather(az_fileshare_url+dfe_filename+az_sas_token)
-            dfeds[winame] = pd.read_feather(az_fileshare_url+dfed_filename+az_sas_token)
-        else:
-            print("loading data from disk...")
-            data_dir = os.getenv('DATA_DIR', None)
-            if data_dir and os.path.exists(data_dir) and len(os.listdir(data_dir)) != 0:
-                dfis[winame] = pd.read_feather(os.path.join(data_dir, dfi_filename))
-                dfas[winame] = pd.read_feather(os.path.join(data_dir, dfa_filename))
-                dfes[winame] = pd.read_feather(os.path.join(data_dir, dfe_filename))
-                dfeds[winame] = pd.read_feather(os.path.join(data_dir, dfed_filename))
 
-        last_winame = winame
-    for column in sv_vals_by_drive_type[drive_typenow].keys():
-        sv_vals_by_drive_type[drive_typenow][column] = np.asarray(sv_vals_by_drive_type[drive_typenow][column],
-                                                                  dtype=dfes[last_winame].dtypes[column])
-print("data load complete")
+def  load_file(prefix, winame):
+    filename = f"{prefix}_{winame}.feather"
+    if os.getenv("ENVIRONMENT").lower() == "deployment":
+        logger.info(f"loading {filename} from azure fileshare...")
+        az_fileshare_url = os.getenv('AZ_FILESHARE_URL')
+        az_sas_token = os.getenv('AZ_SAS_TOKEN')
+        file_url = f"{az_fileshare_url}/{filename}?{az_sas_token}"
+        return file_url
+    else:
+        logger.info(f"loading {filename} from disk...")
+        data_dir = os.getenv('DATA_DIR', None)
+        filepath = os.path.join(data_dir, filename)
+        return filepath
+try:
+    for drive_typenow in fns_by_drive_type_eir_itn.keys():
+        for eir_itnnow in fns_by_drive_type_eir_itn[drive_typenow].keys():
+            winame = fns_by_drive_type_eir_itn[drive_typenow][eir_itnnow]
+            dfis[winame] = pd.read_feather(load_file('dfi',winame))
+            dfas[winame] = pd.read_feather(load_file('dfa', winame))
+            dfes[winame] = pd.read_feather(load_file('dfe', winame))
+            dfeds[winame] = pd.read_feather(load_file('dfed',winame))
+
+            last_winame = winame
+        for column in sv_vals_by_drive_type[drive_typenow].keys():
+            sv_vals_by_drive_type[drive_typenow][column] = np.asarray(sv_vals_by_drive_type[drive_typenow][column],
+                                                                      dtype=dfes[last_winame].dtypes[column])
+    logger.info("data load completed")
+except Exception as e:
+    logger.error(traceback.format_exc())
+
 ##
 # -------- Component
 class GeneDriveAIO(html.Div):

@@ -7,9 +7,10 @@ services:
     environment:
       - "DEBUG=0"
       - "DATA_DIR=/app/service/csvs"
+      - "ENVIRONMENT=development"
     volumes:
       - ../dash-gene-drive-data:/app/service/csvs
-    container_name: gene_drive_staging
+    container_name: gene_drive
     ports:
       - "8050:8050"
     restart: unless-stopped

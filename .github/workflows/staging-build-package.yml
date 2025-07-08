@@ -5,7 +5,7 @@ on:
     branches:
       # only run this on
       - 'dev'
-      - 'master'
+      - 'main'
       - 'release**'
     paths:
       - 'Gene_Drive/**'

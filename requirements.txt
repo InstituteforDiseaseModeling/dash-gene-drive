@@ -1,6 +1,6 @@
 --index-url=https://packages.idmod.org/api/pypi/pypi-production/simple
-dash==2.0.0
-Werkzeug==2.0.2
+dash==2.15.0
+Werkzeug==3.0.6
 dash-renderer
 dash-html-components
 dash-core-components
